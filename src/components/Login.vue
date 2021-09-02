@@ -1,38 +1,50 @@
 <template>
-  <div class="Login">
+  <div class="LoginForm">
     <section class="section section--login">
       <div class="inner">
         <div class="login-image">
-          <img src="@/assets/images/orange.jpg" class="img-fluid" alt="" />
+          <img src="../assets/images/farm4.jpg" class="img-fluid" alt="" />
         </div>
 
         <div class="inner-border">
           <div class="inner-form">
-            <img class="logo" src="@/assets/logo.png" alt="" />
+            <img class="logo" src="../assets/images/logo.png" alt="" />
 
-            <form class="login--form row g-3" action="">
+            <form
+              ref="loginform"
+              method="post"
+              @submit.prevent="onLogin"
+              class="login--form row g-3"
+              action="http://localhost:8888/farmpam/users/vue/login.do"
+            >
               <div class="col-12 input__text">
                 <input
                   type="text"
                   class="form-control"
-                  id="email"
+                  id="users_email"
+                  name="users_email"
                   placeholder="이메일"
                 />
               </div>
 
               <div class="col-12 input__text">
                 <input
-                  type="pwd"
+                  type="password"
                   class="form-control"
-                  id="pwd"
+                  id="users_pwd"
+                  name="users_pwd"
                   placeholder="비밀번호"
                 />
               </div>
-
+              <span v-show="LoginFailed" class="badge bg-primary"
+                >로그인 정보가 틀려요 !</span
+              >
               <div class="col-12">
-                <button class="btn btn-primary">로그인</button>
+                <button type="submit" class="btn btn-primary">로그인</button>
               </div>
-              <p>또는</p>
+              <div class="line">
+                <p class="or">또는</p>
+              </div>
               <a class="google-login mb-3" href="#">구글 계정으로 로그인</a>
             </form>
             <div class="signup-link">
@@ -50,6 +62,37 @@
 export default {
   name: "Login",
   components: {},
+  data() {
+    return {
+      LoginFailed: false,
+    };
+  },
+  methods: {
+    onLogin(e) {
+      console.log(e.target);
+      const url = e.target.getAttribute("action");
+      const formdata = new FormData(this.$refs.loginform);
+
+      this.$http({
+        url: url,
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        data: formdata,
+      })
+        .then((res) => {
+          console.log(res.data);
+          const data = res.data;
+          if ("failed" in data) {
+            this.LoginFailed = true;
+          }
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    },
+  },
 };
 </script>
 
@@ -81,6 +124,35 @@ h1 {
   padding-bottom: 40px;
   display: flex;
   background-color: #ffffff;
+}
+
+.line {
+  display: flex;
+  flex-basis: 100%;
+  align-items: center;
+  color: rgba(0, 0, 0, 0.35);
+  font-size: 14px;
+  padding: 20px;
+}
+
+.line::before {
+  content: "";
+  flex-grow: 1;
+  margin: 0px 20px 0px 100px;
+  background: rgba(0, 0, 0, 0.35);
+  height: 1px;
+  font-size: 0px;
+  line-height: 0px;
+}
+
+.line::after {
+  content: "";
+  flex-grow: 1;
+  margin: 0px 100px 0px 20px;
+  background: rgba(0, 0, 0, 0.35);
+  height: 1px;
+  font-size: 0px;
+  line-height: 0px;
 }
 
 .inner-form {

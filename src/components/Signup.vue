@@ -4,7 +4,7 @@
       <div class="inner">
         <div class="inner-border">
           <div class="inner--signup">
-            <img class="logo" src="@/assets/logo.png" alt="" />
+            <img class="logo" src="@/assets/images/logo.png" alt="" />
             <p class="signup__title">
               원하는 농장과 농작물들을 보려면 가입하세요
             </p>

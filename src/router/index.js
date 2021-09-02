@@ -26,11 +26,7 @@ const routes = [
     name: "Signup",
     component: () => import("../components/Signup"),
   },
-  {
-    path: "/login",
-    name: "Login",
-    component: () => import("../components/Login"),
-  },
+
   {
     path: "/shop",
     name: "Shop",
@@ -40,6 +36,16 @@ const routes = [
     path: "/sns",
     name: "Social",
     component: () => import("../components/Social"),
+  },
+  {
+    path: "/products",
+    name: "Products",
+    component: () => import("../components/Products.vue"),
+  },
+  {
+    path: "/login",
+    name: "Login",
+    component: () => import("../components/Login"),
   },
 ]
 

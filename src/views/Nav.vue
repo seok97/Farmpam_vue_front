@@ -3,7 +3,7 @@
     <div class="container-fluid">
       <div class="logo">
         <router-link to="/" class="navbar-brand">
-          <img src="@/assets/logo.png" class="nav_logo" />
+          <img src="../assets/images/logo.png" class="nav_logo" />
         </router-link>
       </div>
       <button
@@ -54,6 +54,7 @@
               </svg>
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+              <!-- 비로그인시 -->
               <li>
                 <router-link to="/login" class="dropdown-item"
                   >로그인</router-link
@@ -64,6 +65,8 @@
                   >회원가입</router-link
                 >
               </li>
+              <!-- 일반유저 로그인 메뉴 -->
+              <!-- 농부유저 로그인 메뉴 -->
             </ul>
           </li>
         </ul>
