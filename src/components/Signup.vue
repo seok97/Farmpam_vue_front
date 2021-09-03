@@ -127,8 +127,6 @@
 </template>
 
 <script>
-import route from "../router";
-
 export default {
   name: "Signup",
   data() {
@@ -189,10 +187,10 @@ export default {
         alert("존재하는 이메일입니다. 다시 확인해 주세요.");
       } else {
         const formData = new FormData(this.$refs.signupForm);
-        this.$http.post("/users/signup.do", formData).then((res) => {
+        this.$http.post("/users/vue/signup.do", formData).then((res) => {
           console.log(res);
           alert("회원가입 성공!");
-          route.push({ name: "Home" });
+          this.$router.push({ name: "Home" });
         });
       }
     },

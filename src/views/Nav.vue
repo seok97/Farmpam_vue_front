@@ -55,17 +55,37 @@
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
               <!-- 비로그인시 -->
-              <li>
+              <li v-if="!logintoken.isLogin">
                 <router-link to="/login" class="dropdown-item"
                   >로그인</router-link
                 >
               </li>
-              <li>
+              <li v-if="!logintoken.isLogin">
                 <router-link to="/signup" class="dropdown-item"
                   >회원가입</router-link
                 >
               </li>
               <!-- 일반유저 로그인 메뉴 -->
+              <li v-if="logintoken.isLogin">
+                <router-link to="/sns" class="dropdown-item"
+                  >팜스타그램</router-link
+                >
+              </li>
+              <li v-if="logintoken.isLogin">
+                <router-link to="/" class="dropdown-item">주문목록</router-link>
+              </li>
+              <li v-if="logintoken.isLogin">
+                <router-link to="/" class="dropdown-item"
+                  >취소/반품</router-link
+                >
+              </li>
+              <li v-if="logintoken.isLogin">
+                <router-link to="/" class="dropdown-item">찜리스트</router-link>
+              </li>
+              <li><hr class="dropdown-divider" /></li>
+              <li v-if="logintoken.isLogin">
+                <button @click="logout" class="dropdown-item">로그아웃</button>
+              </li>
               <!-- 농부유저 로그인 메뉴 -->
             </ul>
           </li>
@@ -76,7 +96,18 @@
 </template>
 
 <script>
-export default {};
+import { mapState } from "vuex";
+
+export default {
+  name: "Nav",
+  computed: mapState(["logintoken"]),
+  methods: {
+    logout() {
+      this.$store.commit("LOGOUT");
+      this.$router.go();
+    },
+  },
+};
 </script>
 
 <style scoped>

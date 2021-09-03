@@ -15,7 +15,7 @@
               method="post"
               @submit.prevent="onLogin"
               class="login--form row g-3"
-              action="http://localhost:8888/farmpam/users/vue/login.do"
+              action="/users/vue/login.do"
             >
               <div class="col-12 input__text">
                 <input
@@ -73,24 +73,12 @@ export default {
       const url = e.target.getAttribute("action");
       const formdata = new FormData(this.$refs.loginform);
 
-      this.$http({
-        url: url,
-        method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        data: formdata,
-      })
-        .then((res) => {
-          console.log(res.data);
-          const data = res.data;
-          if ("failed" in data) {
-            this.LoginFailed = true;
-          }
-        })
-        .catch((e) => {
-          console.log(e);
-        });
+      const isRight = this.$store.dispatch("loginAction", { url, formdata });
+      if (!isRight) {
+        this.LoginFailed = true;
+      }
+
+      this.$router.push("/");
     },
   },
 };
