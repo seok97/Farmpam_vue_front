@@ -2,7 +2,8 @@
   <div id="root">
     <header>
       <nav>
-        <Nav />
+        <Shopnav v-if="this.$route.params.pagename == 'shoppage'" />
+        <Nav v-else />
       </nav>
     </header>
     <main>
@@ -22,10 +23,12 @@
 
 <script>
 import Nav from "./views/Nav.vue";
+import Shopnav from "./views/Shopnav.vue";
 
 export default {
   components: {
     Nav,
+    Shopnav,
   },
 };
 // 새로고침시 스크롤바 맨위로

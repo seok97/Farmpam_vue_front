@@ -4,6 +4,13 @@
   </div>
 </template>
 
+<script>
+export default {
+  name: "Social",
+  methods: {},
+};
+</script>
+
 <style scoped>
 h1 {
   margin: 54px;

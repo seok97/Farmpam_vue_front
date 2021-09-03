@@ -9,44 +9,38 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     logintoken: {
-      email: "",
-      auth: "",
-      isLogin: false,
+      /*
+        email: String, name: String, chk: String (일반유저"chk_common") (판매자"chk_farmer"), token: boolean
+      */
     },
   },
   mutations: {
-    LOGIN_SUCCESS(state, value) {
-      state.logintoken.email = value.email
-      state.logintoken.auth = value.chk
-      state.logintoken.isLogin = true
+    LOGIN_SUCCESS(state, userData) {
+      state.logintoken = userData
+      localStorage.setItem("user", JSON.stringify(userData))
     },
-    LOGIN_FAILURE(state, value) {},
 
     LOGOUT(state) {
-      state.logintoken.email = ""
-      state.logintoken.auth = ""
-      state.logintoken.isLogin = false
+      state.logintoken = {}
+      localStorage.removeItem("user")
     },
   },
   actions: {
     // 로그인 처리
-    loginAction({ commit }, value) {
-      axios({
-        url: value.url,
-        method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        data: value.formdata,
-      })
+    loginAction({ commit }, formdata) {
+      const url = "/users/vue/login.do"
+      axios
+        .post(url, formdata)
         .then((res) => {
           console.log(res.data)
           const data = res.data
-          if ("failed" in data) {
+
+          if (data.token) {
+            commit("LOGIN_SUCCESS", data)
+            return true
+          } else {
             return false
           }
-          commit("LOGIN_SUCCESS", data)
-          return true
         })
         .catch((e) => {
           console.log(e)

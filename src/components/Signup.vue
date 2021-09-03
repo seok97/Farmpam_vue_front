@@ -190,7 +190,7 @@ export default {
         this.$http.post("/users/vue/signup.do", formData).then((res) => {
           console.log(res);
           alert("회원가입 성공!");
-          this.$router.push({ name: "Home" });
+          this.$router.push({ name: "Login" });
         });
       }
     },

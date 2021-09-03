@@ -24,6 +24,7 @@
                   id="users_email"
                   name="users_email"
                   placeholder="이메일"
+                  v-model="email"
                 />
               </div>
 
@@ -34,9 +35,10 @@
                   id="users_pwd"
                   name="users_pwd"
                   placeholder="비밀번호"
+                  v-model="password"
                 />
               </div>
-              <span v-show="LoginFailed" class="badge bg-primary"
+              <span v-show="isLogin" class="badge bg-primary"
                 >로그인 정보가 틀려요 !</span
               >
               <div class="col-12">
@@ -64,21 +66,26 @@ export default {
   components: {},
   data() {
     return {
-      LoginFailed: false,
+      email: "",
+      password: "",
+      isLogin: false,
     };
   },
   methods: {
     onLogin(e) {
-      console.log(e.target);
-      const url = e.target.getAttribute("action");
       const formdata = new FormData(this.$refs.loginform);
 
-      const isRight = this.$store.dispatch("loginAction", { url, formdata });
+      const isRight = this.$store.dispatch("loginAction", formdata);
+      // isRight 가 true 면 로그인 성공.
+      // isRight 가 false 일때 isLogin 을 true 로 변경하여 로그인실패를 띄운다.
       if (!isRight) {
-        this.LoginFailed = true;
+        // isLogin 이 true면 로그인 실패를 띄운다.
+        this.isLogin = true;
+      } else {
+        // 로그인이 성공하면 홈으로 이동.
+        alert("로그인 성공");
+        this.$router.push({ path: "/" });
       }
-
-      this.$router.push("/");
     },
   },
 };

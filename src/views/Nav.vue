@@ -1,6 +1,6 @@
 <template>
   <div class="nav navbar navbar-expand-lg navbar-light">
-    <div class="container-fluid">
+    <div class="container-fluid bg-white">
       <div class="logo">
         <router-link to="/" class="navbar-brand">
           <img src="../assets/images/logo.png" class="nav_logo" />
@@ -26,70 +26,80 @@
             <router-link to="/sns" class="nav-link">Farmstargram</router-link>
           </li>
           <li class="nav-item">
-            <router-link to="/shop" class="nav-link">SHOP</router-link>
-          </li>
-
-          <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle"
-              href="#"
-              id="navbarScrollingDropdown"
-              role="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="currentColor"
-                class="bi bi-person-circle"
-                viewBox="0 0 16 16"
-              >
-                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
-                <path
-                  fill-rule="evenodd"
-                  d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"
-                />
-              </svg>
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-              <!-- 비로그인시 -->
-              <li v-if="!logintoken.isLogin">
-                <router-link to="/login" class="dropdown-item"
-                  >로그인</router-link
-                >
-              </li>
-              <li v-if="!logintoken.isLogin">
-                <router-link to="/signup" class="dropdown-item"
-                  >회원가입</router-link
-                >
-              </li>
-              <!-- 일반유저 로그인 메뉴 -->
-              <li v-if="logintoken.isLogin">
-                <router-link to="/sns" class="dropdown-item"
-                  >팜스타그램</router-link
-                >
-              </li>
-              <li v-if="logintoken.isLogin">
-                <router-link to="/" class="dropdown-item">주문목록</router-link>
-              </li>
-              <li v-if="logintoken.isLogin">
-                <router-link to="/" class="dropdown-item"
-                  >취소/반품</router-link
-                >
-              </li>
-              <li v-if="logintoken.isLogin">
-                <router-link to="/" class="dropdown-item">찜리스트</router-link>
-              </li>
-              <li><hr class="dropdown-divider" /></li>
-              <li v-if="logintoken.isLogin">
-                <button @click="logout" class="dropdown-item">로그아웃</button>
-              </li>
-              <!-- 농부유저 로그인 메뉴 -->
-            </ul>
+            <router-link to="/shop/shoppage" class="nav-link">SHOP</router-link>
           </li>
         </ul>
+        <div class="d-flex dropdown bg-white">
+          <button
+            type="button"
+            class="btn dropdown-toggle"
+            data-bs-toggle="dropdown"
+            data-bs-display="static"
+            aria-expanded="false"
+          >
+            <h3 v-if="logintoken.token">{{ logintoken.name }} 로그인 중...</h3>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-person-circle"
+              viewBox="0 0 16 16"
+            >
+              <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+              <path
+                fill-rule="evenodd"
+                d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"
+              />
+            </svg>
+          </button>
+
+          <!-- MyMenu -->
+          <!-- 비로그인시 -->
+          <ul
+            v-if="!logintoken.token"
+            class="dropdown-menu dropdown-menu-lg-end"
+            aria-labelledby="navbarScrollingDropdown"
+          >
+            <li>
+              <router-link to="/login" class="dropdown-item"
+                >로그인</router-link
+              >
+            </li>
+            <li>
+              <router-link to="/signup" class="dropdown-item"
+                >회원가입</router-link
+              >
+            </li>
+          </ul>
+
+          <!-- 일반유저 로그인 메뉴 -->
+          <ul
+            v-if="logintoken.token"
+            class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start"
+            aria-labelledby="navbarScrollingDropdown"
+          >
+            <li>
+              <router-link to="/sns" class="dropdown-item"
+                >팜스타그램</router-link
+              >
+            </li>
+            <li>
+              <router-link to="/" class="dropdown-item">주문목록</router-link>
+            </li>
+            <li>
+              <router-link to="/" class="dropdown-item">취소/반품</router-link>
+            </li>
+            <li>
+              <router-link to="/" class="dropdown-item">찜리스트</router-link>
+            </li>
+            <li><hr class="dropdown-divider" /></li>
+            <li>
+              <button @click="logout" class="dropdown-item">로그아웃</button>
+            </li>
+            <!-- 농부유저 로그인 메뉴 -->
+          </ul>
+        </div>
       </div>
     </div>
   </div>
@@ -104,7 +114,7 @@ export default {
   methods: {
     logout() {
       this.$store.commit("LOGOUT");
-      this.$router.push("/");
+      this.$router.go(this.$router.currentRoute);
     },
   },
 };

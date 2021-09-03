@@ -1,0 +1,63 @@
+<template>
+  <div class="nav navbar navbar-expand-lg navbar-light">
+    <div class="container-fluid">
+      <ul class="nav nav-pills">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Active</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            data-bs-toggle="dropdown"
+            href="#"
+            role="button"
+            aria-expanded="false"
+            >Dropdown</a
+          >
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+            <li><hr class="dropdown-divider" /></li>
+            <li><a class="dropdown-item" href="#">Separated link</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Link</a>
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link disabled"
+            href="#"
+            tabindex="-1"
+            aria-disabled="true"
+            >Disabled</a
+          >
+        </li>
+      </ul>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {};
+</script>
+
+<style scoped>
+.nav {
+  box-sizing: border-box;
+  height: 54px;
+  width: 100%;
+  border-bottom: 1px solid rgba(var(--b6a, 219, 219, 219), 1);
+  position: absolute;
+  background-color: greenyellow;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+.nav div {
+  height: 100%;
+}
+</style>
