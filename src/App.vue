@@ -30,6 +30,9 @@ export default {
     Nav,
     Shopnav,
   },
+  beforeCreate() {
+    this.$router.push("/");
+  },
 };
 // 새로고침시 스크롤바 맨위로
 history.scrollRestoration = "manual";
@@ -50,6 +53,16 @@ window.addEventListener(
   },
   { passive: false }
 );
+
+// // 새로고침 처리
+// function LockF5() {
+//   if (event.keyCode == 116) {
+//     event.keyCode = 0;
+//     this.$router.push("/");
+//     return false;
+//   }
+// }
+// document.onkeydown = LockF5;
 </script>
 
 <style>

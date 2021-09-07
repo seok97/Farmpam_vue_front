@@ -12,17 +12,17 @@
 
             <form
               ref="loginform"
-              method="POST"
+              method="post"
               @submit.prevent="onLogin"
               class="login--form row g-3"
-              action="/users/vue/login.do"
+              action="/farmer/vue/login.do"
             >
               <div class="col-12 input__text">
                 <input
                   type="text"
                   class="form-control"
-                  id="users_email"
-                  name="users_email"
+                  id="farmer_email"
+                  name="farmer_email"
                   placeholder="이메일"
                   v-model="email"
                 />
@@ -32,8 +32,8 @@
                 <input
                   type="password"
                   class="form-control"
-                  id="users_pwd"
-                  name="users_pwd"
+                  id="farmer_pwd"
+                  name="farmer_pwd"
                   placeholder="비밀번호"
                   v-model="password"
                 />
@@ -44,11 +44,9 @@
               <div class="col-12">
                 <button type="submit" class="btn btn-primary">로그인</button>
               </div>
-
               <div class="line">
                 <p class="or">또는</p>
               </div>
-              <router-link to="/farmerlogin">농부로 로그인 하기</router-link>
               <a class="google-login mb-3" href="#">구글 계정으로 로그인</a>
             </form>
             <div class="signup-link">
@@ -64,7 +62,7 @@
 
 <script>
 export default {
-  name: "Login",
+  name: "FarmerLogin",
   components: {},
   data() {
     return {
@@ -74,12 +72,12 @@ export default {
     };
   },
   methods: {
-    onLogin() {
+    onLogin(e) {
       const formdata = new FormData(this.$refs.loginform);
-      console.log(formdata.get("users_email"));
+
       const isRight = this.$store.dispatch("loginAction", {
         form: formdata,
-        num: 0,
+        num: 1,
       });
       // isRight 가 true 면 로그인 성공.
       // isRight 가 false 일때 isLogin 을 true 로 변경하여 로그인실패를 띄운다.

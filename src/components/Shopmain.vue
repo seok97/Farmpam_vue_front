@@ -1,43 +1,6 @@
 <template>
   <div class="shopmain container-fluid d-flex flex-column">
     <div class="row">
-      <!-- 과일 | 채소 | 곡류 | 축산/계란 -->
-
-      <div class="dropdown">
-        <button
-          class="btn btn-secondary dropdown-toggle"
-          type="button"
-          id="dropdownMenu2"
-          data-bs-toggle="dropdown"
-          aria-expanded="false"
-        >
-          전체 카테고리
-        </button>
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-          <li>
-            <button class="dropdown-item" type="button">과일</button>
-            <button
-              class="btn btn-primary"
-              type="button"
-              data-bs-toggle="offcanvas"
-              data-bs-target="#offcanvasScrolling"
-              aria-controls="offcanvasScrolling"
-            >
-              Enable body scrolling
-            </button>
-          </li>
-          <li>
-            <button class="dropdown-item" type="button">채소</button>
-          </li>
-          <li>
-            <button class="dropdown-item" type="button">곡류</button>
-          </li>
-          <li>
-            <button class="dropdown-item" type="button">축산/계란</button>
-          </li>
-        </ul>
-      </div>
-
       <div
         class="offcanvas offcanvas-start"
         data-bs-scroll="true"

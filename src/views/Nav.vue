@@ -37,7 +37,10 @@
             data-bs-display="static"
             aria-expanded="false"
           >
-            <h3 v-if="logintoken.token">{{ logintoken.name }} 로그인 중...</h3>
+            <span v-if="logintoken.token"
+              ><strong>{{ logintoken.name }}</strong
+              >님 로그인 중... {{ logintoken.chk }}</span
+            >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"
@@ -75,7 +78,7 @@
 
           <!-- 일반유저 로그인 메뉴 -->
           <ul
-            v-if="logintoken.token"
+            v-if="logintoken.chk === 'chk_common'"
             class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start"
             aria-labelledby="navbarScrollingDropdown"
           >
@@ -97,7 +100,29 @@
             <li>
               <button @click="logout" class="dropdown-item">로그아웃</button>
             </li>
-            <!-- 농부유저 로그인 메뉴 -->
+          </ul>
+
+          <!-- 농부유저 로그인 메뉴 -->
+          <ul
+            v-else-if="logintoken.chk === 'chk_farmer'"
+            class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start"
+            aria-labelledby="navbarScrollingDropdown"
+          >
+            <li>
+              <router-link to="/sns" class="dropdown-item"
+                >팜스타그램</router-link
+              >
+            </li>
+            <li>
+              <router-link to="/" class="dropdown-item">내상점</router-link>
+            </li>
+            <li>
+              <router-link to="/" class="dropdown-item">주문관리</router-link>
+            </li>
+            <li><hr class="dropdown-divider" /></li>
+            <li>
+              <button @click="logout" class="dropdown-item">로그아웃</button>
+            </li>
           </ul>
         </div>
       </div>
@@ -114,7 +139,7 @@ export default {
   methods: {
     logout() {
       this.$store.commit("LOGOUT");
-      this.$router.go(this.$router.currentRoute);
+      // this.$router.go(this.$router.currentRoute);
     },
   },
 };
