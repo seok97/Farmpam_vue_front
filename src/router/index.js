@@ -69,7 +69,7 @@ const routes = [
     component: () => import("../components/GoodsDetail"),
   },
   {
-    path: "/shop/goods/:pagename?/myshop/:farmer_email?",
+    path: "/shop/goods/:pagename?/myshop/:farmer_name?/:farmer_email?",
     name: "MyShop",
     component: () => import("../components/MyShop"),
   },

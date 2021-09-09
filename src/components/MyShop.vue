@@ -1,8 +1,10 @@
 <template>
   <div class="myshop_main container">
-    <div class="row mt-5">
-      <div class="col-10">{{ farmer_name }}의 상점</div>
-      <div class="col-2"><button>상점관리</button></div>
+    <div class="row mt-5 mb-5">
+      <div class="col-10">{{ this.$route.params.farmer_name }}의 상점</div>
+      <div class="col-2">
+        <button v-if="$store.getters.getToken">상점관리</button>
+      </div>
     </div>
     <div class="row divid"></div>
     <div class="row">
@@ -49,6 +51,49 @@
         </li>
       </ul>
     </div>
+
+    <div class="row">
+      <nav>
+        <ul class="pagination justify-content-center">
+          <li class="page-item" v-if="pagingData.startPageNum != 1">
+            <a
+              v-on:click.prevent="movePage(pagingData.startPageNum - 1)"
+              class="page-link"
+              href=""
+              >&laquo;</a
+            >
+          </li>
+          <li class="page-item disabled" v-else>
+            <a class="page-link" href="javascript:">&laquo;</a>
+          </li>
+
+          <li
+            v-for="(i, index) in pageNums"
+            class="page-item"
+            v-bind:class="{ active: i == pagingData.pageNum }"
+            :key="index"
+          >
+            <a v-on:click.prevent="movePage(i)" class="page-link" href="">
+              {{ i }}</a
+            >
+          </li>
+          <li
+            class="page-item"
+            v-if="pagingData.endPageNum < pagingData.totalPageCount"
+          >
+            <a
+              v-on:click.prevent="movePage(pagingData.endPageNum + 1)"
+              class="page-link"
+              href=""
+              >&raquo;</a
+            >
+          </li>
+          <li class="page-item disabled" v-else>
+            <a class="page-link" href="javascript:">&raquo;</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
   </div>
 </template>
 
@@ -60,25 +105,56 @@ export default {
       goodsList: [],
       farmer_name: "",
       farmer_email: "",
+      pagingData: {
+        pageNum: 1,
+        startPageNum: 1,
+        endPageNum: 5,
+        totalPageCount: 0,
+      },
+      category: "",
+      category_lows: [],
+      category_top_idx: 0,
     }
+  },
+  computed: {
+    pageNums() {
+      // 페이지 번호 배열을 반환해주는 함수
+      // startPagaNum 과 endPageNum 의 값이 변하면 자동으로 실행되어 업데이트 된다.
+      const nums = []
+      for (
+        let i = this.pagingData.startPageNum;
+        i <= this.pagingData.endPageNum;
+        i++
+      ) {
+        nums.push(i)
+      }
+      return nums
+    },
   },
   created() {
     this.getMyList()
   },
   methods: {
+    movePage(pageNum) {
+      //현재 페이지를 수정하고
+      this.pagingData.pageNum = pageNum
+      this.getMyList()
+    },
     getMyList() {
       console.log(this.$route.params.farmer_email)
       this.farmer_email = this.$route.params.farmer_email
-      this.farmer_name = this.$route.params.farmer_name
       this.$http
         .get("/vue/myshop/list.do", {
           params: {
             farmer_email: this.farmer_email,
+            pageNum: this.pagingData.pageNum,
           },
         })
         .then((res) => {
           console.log(res.data)
           this.goodsList = res.data.goodsList
+          this.pagingData = res.data.pagingData
+          this.category_lows = res.data.category_low
         })
     },
   },
@@ -92,5 +168,31 @@ export default {
 
 .divid {
   border: 0.5px solid black;
+}
+
+.thumb {
+  height: 100%;
+  position: relative;
+}
+
+.items_iamge {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.group_btn {
+  position: absolute;
+  z-index: 2;
+  right: 15px;
+  bottom: 15px;
+  width: fit-content;
 }
 </style>

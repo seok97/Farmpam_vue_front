@@ -114,7 +114,18 @@
               >
             </li>
             <li>
-              <router-link to="/" class="dropdown-item">내상점</router-link>
+              <router-link
+                class="dropdown-item"
+                :to="{
+                  name: 'MyShop',
+                  params: {
+                    pagename: 'shoppage',
+                    farmer_email: logintoken.email,
+                    farmer_name: logintoken.name,
+                  },
+                }"
+                >내상점</router-link
+              >
             </li>
             <li>
               <router-link to="/" class="dropdown-item">주문관리</router-link>

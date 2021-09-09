@@ -101,8 +101,19 @@
             </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#"
-              ><svg
+            <!--  -->
+            <button
+              type="button"
+              class="btn dropdown-toggle"
+              data-bs-toggle="dropdown"
+              data-bs-display="static"
+              aria-expanded="false"
+            >
+              <span v-if="logintoken.token"
+                ><strong>{{ logintoken.name }}</strong
+                >님 로그인 중... {{ logintoken.chk }}</span
+              >
+              <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
                 height="16"
@@ -114,8 +125,90 @@
                 <path
                   fill-rule="evenodd"
                   d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"
-                /></svg
-            ></a>
+                />
+              </svg>
+            </button>
+            <!-- MyMenu -->
+            <!-- 비로그인시 -->
+            <ul
+              v-if="!logintoken.token"
+              class="dropdown-menu dropdown-menu-lg-end"
+              aria-labelledby="navbarScrollingDropdown"
+            >
+              <li>
+                <router-link to="/login" class="dropdown-item"
+                  >로그인</router-link
+                >
+              </li>
+              <li>
+                <router-link to="/signup" class="dropdown-item"
+                  >회원가입</router-link
+                >
+              </li>
+            </ul>
+
+            <!-- 일반유저 로그인 메뉴 -->
+            <ul
+              v-else-if="logintoken.chk === 'chk_common'"
+              class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start"
+              aria-labelledby="navbarScrollingDropdown"
+            >
+              <li>
+                <router-link to="/sns" class="dropdown-item"
+                  >팜스타그램</router-link
+                >
+              </li>
+              <li>
+                <router-link to="/" class="dropdown-item">주문목록</router-link>
+              </li>
+              <li>
+                <router-link to="/" class="dropdown-item"
+                  >취소/반품</router-link
+                >
+              </li>
+              <li>
+                <router-link to="/" class="dropdown-item">찜리스트</router-link>
+              </li>
+              <li><hr class="dropdown-divider" /></li>
+              <li>
+                <button @click="logout" class="dropdown-item">로그아웃</button>
+              </li>
+            </ul>
+
+            <!-- 농부유저 로그인 메뉴 -->
+            <ul
+              v-else-if="logintoken.chk === 'chk_farmer'"
+              class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start"
+              aria-labelledby="navbarScrollingDropdown"
+            >
+              <li>
+                <router-link to="/sns" class="dropdown-item"
+                  >팜스타그램</router-link
+                >
+              </li>
+              <li>
+                <router-link
+                  class="dropdown-item"
+                  :to="{
+                    name: 'MyShop',
+                    params: {
+                      pagename: 'shoppage',
+                      farmer_email: logintoken.email,
+                      farmer_name: logintoken.name,
+                    },
+                  }"
+                  >내상점</router-link
+                >
+              </li>
+              <li>
+                <router-link to="/" class="dropdown-item">주문관리</router-link>
+              </li>
+              <li><hr class="dropdown-divider" /></li>
+              <li>
+                <button @click="logout" class="dropdown-item">로그아웃</button>
+              </li>
+            </ul>
+            <!--  -->
           </li>
 
           <li class="nav-item dropdown">
@@ -153,7 +246,18 @@
 </template>
 
 <script>
-export default {}
+import { mapState } from "vuex"
+
+export default {
+  name: "Shopnav",
+  computed: mapState(["logintoken"]),
+  methods: {
+    logout() {
+      this.$store.commit("LOGOUT")
+      // this.$router.go(this.$router.currentRoute);
+    },
+  },
+}
 </script>
 
 <style scoped>

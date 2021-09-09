@@ -13,6 +13,7 @@ export default new Vuex.Store({
   state: {
     // 로그인 토큰
     logintoken: {
+      token: false,
       /*
         email: String, name: String, chk: String (일반유저"chk_common") (판매자"chk_farmer"), token: boolean
       */
@@ -55,7 +56,7 @@ export default new Vuex.Store({
   },
   getters: {
     getToken(state) {
-      return state.logintoken
+      return state.logintoken.token
     },
   },
   plugins: [
