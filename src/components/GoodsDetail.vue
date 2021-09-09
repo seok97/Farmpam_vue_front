@@ -25,7 +25,8 @@
               name: 'MyShop',
               params: {
                 pagename: 'shoppage',
-                farmername: goodsData.farmer_email,
+                farmer_email: goodsData.farmer_email,
+                farmer_name: goodsData.farmer_name,
               },
             }"
           >
@@ -45,7 +46,7 @@
                   />
                 </svg>
               </div>
-              <div class="col">{{ goodsData.farmer_email }}</div>
+              <div class="col">{{ goodsData.farmer_name }} 님 상점으로</div>
             </div>
           </router-link>
           <div class="row goods_title">
