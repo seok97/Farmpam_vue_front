@@ -9,18 +9,42 @@
     <div class="row">
       <div class="col">
         <div class="row category_top">
-          <h1>{{ category }}</h1>
+          <button class="btn" @click="selCateLow(0)">
+            <h1>{{ category }}</h1>
+          </button>
         </div>
         <div class="row category_lows">
           <ul
             class="list-group list-group-horizontal-sm flex-fill row row-cols-1 row-cols-sm-2 row-cols-md-5"
           >
+            <li class="list-group-item">
+              <button
+                type="button"
+                class="btn"
+                @click="selCateLow(0)"
+                :class="{
+                  active_category: category_top_idx == 0,
+                }"
+              >
+                전체보기
+              </button>
+            </li>
             <li
               v-for="(cate, index) in category_lows"
               :key="index"
               class="list-group-item"
             >
-              {{ cate }}
+              <button
+                type="button"
+                class="btn"
+                @click="selCateLow(cate.item_category_top_idx)"
+                :class="{
+                  active_category:
+                    cate.item_category_top_idx == category_top_idx,
+                }"
+              >
+                {{ cate.item_category_low_name }}
+              </button>
             </li>
           </ul>
         </div>
@@ -28,7 +52,7 @@
       <div class="row">
         <div class="col">정렬버튼</div>
       </div>
-      <div class="list_goods row">
+      <div class="list_goods row justify-content-center">
         <div class="row">
           <ul class="list row row-cols-2 row-cols-sm-2 row-cols-md-3">
             <li
@@ -38,32 +62,84 @@
             >
               <div class="item">
                 <div class="row thumb">
-                  <img
-                    v-if="item.item_image != 'empty'"
-                    class="items_iamge"
-                    :src="item.item_image"
-                    alt=""
-                  />
-                  <img
-                    v-else
-                    class="items_iamge"
-                    src="@/assets/images/xbox.png"
-                    alt=""
-                  />
+                  <router-link
+                    :to="{
+                      name: 'GoodsDetail',
+                      params: { pagename: 'shoppage', itemId: item.item_idx },
+                    }"
+                    class="itemLink"
+                  >
+                    <img
+                      v-if="item.item_image != 'empty'"
+                      class="items_iamge"
+                      :src="item.item_image"
+                      alt=""
+                    />
+                    <img
+                      v-else
+                      class="items_iamge"
+                      src="@/assets/images/xbox.png"
+                      alt=""
+                    />
+                  </router-link>
                   <div class="group_btn">
                     <button>장바구니/좋아요</button>
                   </div>
                 </div>
                 <div class="row info">
-                  <span class="title">{{ item.item_title }}</span>
-                  <span class="cost">{{ item.item_price }} 원</span>
-                  <span class="content">{{ item.item_content }}</span>
+                  <router-link to="" class="row">
+                    <span class="title">{{ item.item_title }}</span>
+                    <span class="cost">{{ item.item_price }} 원</span>
+                    <span class="content">{{ item.item_content }}</span>
+                  </router-link>
                 </div>
               </div>
             </li>
           </ul>
         </div>
       </div>
+    </div>
+    <div class="row">
+      <nav>
+        <ul class="pagination justify-content-center">
+          <li class="page-item" v-if="pagingData.startPageNum != 1">
+            <a
+              v-on:click.prevent="movePage(pagingData.startPageNum - 1)"
+              class="page-link"
+              href=""
+              >&laquo;</a
+            >
+          </li>
+          <li class="page-item disabled" v-else>
+            <a class="page-link" href="javascript:">&laquo;</a>
+          </li>
+
+          <li
+            v-for="(i, index) in pageNums"
+            class="page-item"
+            v-bind:class="{ active: i == pagingData.pageNum }"
+            :key="index"
+          >
+            <a v-on:click.prevent="movePage(i)" class="page-link" href="">
+              {{ i }}</a
+            >
+          </li>
+          <li
+            class="page-item"
+            v-if="pagingData.endPageNum < pagingData.totalPageCount"
+          >
+            <a
+              v-on:click.prevent="movePage(pagingData.endPageNum + 1)"
+              class="page-link"
+              href=""
+              >&raquo;</a
+            >
+          </li>
+          <li class="page-item disabled" v-else>
+            <a class="page-link" href="javascript:">&raquo;</a>
+          </li>
+        </ul>
+      </nav>
     </div>
   </div>
 </template>
@@ -76,15 +152,37 @@ export default {
       categoryNum: this.$route.params.category,
       category: "",
       category_lows: [],
-      pageNum: 1,
+      category_top_idx: 0,
+      pagingData: {
+        pageNum: 1,
+        startPageNum: 1,
+        endPageNum: 5,
+        totalPageCount: 0,
+      },
       keyword: "",
       condition: "",
       list: [],
     }
   },
+  computed: {
+    pageNums() {
+      // 페이지 번호 배열을 반환해주는 함수
+      // startPagaNum 과 endPageNum 의 값이 변하면 자동으로 실행되어 업데이트 된다.
+      const nums = []
+      for (
+        let i = this.pagingData.startPageNum;
+        i <= this.pagingData.endPageNum;
+        i++
+      ) {
+        nums.push(i)
+      }
+      return nums
+    },
+  },
   watch: {
     "$route.params.category": function(current) {
       this.categoryNum = current
+      this.category_top_idx = 0
       this.changeCate(current)
       this.getGoodsList()
     },
@@ -94,6 +192,10 @@ export default {
     this.getGoodsList()
   },
   methods: {
+    selCateLow(top_idx) {
+      this.category_top_idx = top_idx
+      this.getGoodsList()
+    },
     changeCate(param) {
       if (param == 1) {
         this.category = "과일"
@@ -109,18 +211,25 @@ export default {
       this.$http
         .get("vue/item/list.do", {
           params: {
-            pageNum: this.pageNum,
+            pageNum: this.pagingData.pageNum,
             category_ref: this.categoryNum,
+            category_top_idx: this.category_top_idx,
           },
         })
         .then((res) => {
           console.log(res.data)
           this.list = res.data.goodsList
           this.category_lows = res.data.category_low
+          this.pagingData = res.data.pagingData
         })
         .catch((e) => {
           console.log(e)
         })
+    },
+    movePage(pageNum) {
+      //현재 페이지를 수정하고
+      this.pagingData.pageNum = pageNum
+      this.getGoodsList()
     },
   },
 }
@@ -141,8 +250,17 @@ export default {
   padding: 0;
 }
 
+.active_category {
+  color: #00d458;
+  font-weight: bold;
+}
+
 .list-group-item {
   border: none;
+}
+
+.itemLink {
+  height: 100%;
 }
 
 .item {

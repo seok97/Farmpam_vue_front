@@ -38,6 +38,7 @@ const routes = [
     component: () => import("../components/Social"),
   },
   {
+    // 삭제 예정
     path: "/products",
     name: "Products",
     component: () => import("../components/Products.vue"),
@@ -58,9 +59,19 @@ const routes = [
     component: () => import("../components/FarmerSign.vue"),
   },
   {
-    path: "/shop/goods/:pagename?/:category",
+    path: "/shop/goods/:pagename?/:category?",
     name: "ShopCategory",
     component: () => import("../components/ShopCategory"),
+  },
+  {
+    path: "/shop/goods/:pagename?/detail/:itemId",
+    name: "GoodsDetail",
+    component: () => import("../components/GoodsDetail"),
+  },
+  {
+    path: "/shop/goods/:pagename?/myshop/:farmername?",
+    name: "MyShop",
+    component: () => import("../components/MyShop"),
   },
 ]
 

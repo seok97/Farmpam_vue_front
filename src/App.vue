@@ -30,9 +30,9 @@ export default {
     Nav,
     Shopnav,
   },
-  beforeCreate() {
-    this.$router.push("/")
-  },
+  // beforeCreate() {
+  //   this.$router.push("/")
+  // },
 }
 // 새로고침시 스크롤바 맨위로
 history.scrollRestoration = "manual"

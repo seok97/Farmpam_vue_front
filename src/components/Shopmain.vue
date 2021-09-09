@@ -40,7 +40,12 @@
           v-for="(item, index) in itemList"
           v-bind:key="index"
         >
-          <router-link to="/products">
+          <router-link
+            :to="{
+              name: 'GoodsDetail',
+              params: { pagename: 'shoppage', itemId: item.item_idx },
+            }"
+          >
             <div v-if="index < 4" class="card h-100">
               <img
                 v-bind:src="item.item_image"
@@ -130,7 +135,7 @@
 </style>
 
 <script>
-import { list } from "./test";
+import { list } from "./test"
 
 export default {
   name: "Shopmain",
@@ -138,8 +143,7 @@ export default {
   data() {
     return {
       itemList: list,
-    };
+    }
   },
-};
+}
 </script>
-
