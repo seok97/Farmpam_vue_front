@@ -1,14 +1,94 @@
 <template>
   <div class="myshop_main container">
     <div class="row mt-5 mb-5">
-      <div class="col-10">{{ this.$route.params.farmer_name }}의 상점</div>
+      <div class="col-10 farmerName">
+        <span>{{ this.$route.params.farmer_name }}</span>
+      </div>
       <div class="col-2">
         <button v-if="$store.getters.getToken">상점관리</button>
       </div>
     </div>
+    <div class="row sticky_top">
+      <div class="col">
+        <div class="row category_refs mt-5 mb-5">
+          <ul class="nav category_ref justify-content-center">
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                :class="{
+                  disabled: category_ref == 0,
+                  active: category_ref != 0,
+                }"
+                aria-current="page"
+                href="#"
+                @click="changeCategory(0)"
+                >전체보기</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                :class="{
+                  disabled: category_ref == 1,
+                  active: category_ref != 1,
+                }"
+                href="#"
+                @click="changeCategory(1)"
+                >과일</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                :class="{
+                  disabled: category_ref == 2,
+                  active: category_ref != 2,
+                }"
+                href="#"
+                @click="changeCategory(2)"
+                >채소</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                :class="{
+                  disabled: category_ref == 3,
+                  active: category_ref != 3,
+                }"
+                href="#"
+                @click="changeCategory(3)"
+                >쌀/잡곡</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                :class="{
+                  disabled: category_ref == 4,
+                  active: category_ref != 4,
+                }"
+                href="#"
+                tabindex="-1"
+                @click="changeCategory(4)"
+                >축산/계란</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
     <div class="row divid"></div>
     <div class="row">
-      <ul class="list row row-cols-2 row-cols-sm-2 row-cols-md-3">
+      <ul
+        v-if="goodsList.length == 0"
+        class="list row row-cols-2 row-cols-sm-2 row-cols-md-3 justify-content-center mt-5 mb-5"
+      >
+        <span class="text-muted text-center">
+          상품이 없어요 !
+        </span>
+      </ul>
+      <ul v-else class="list row row-cols-2 row-cols-sm-2 row-cols-md-3">
         <li
           v-for="(item, index) in goodsList"
           :key="index"
@@ -114,7 +194,14 @@ export default {
       category: "",
       category_lows: [],
       category_top_idx: 0,
+      category_ref: 0,
     }
+  },
+  watch: {
+    category_ref: function(current) {
+      this.category_ref = current
+      this.getMyList()
+    },
   },
   computed: {
     pageNums() {
@@ -135,6 +222,9 @@ export default {
     this.getMyList()
   },
   methods: {
+    changeCategory(ref) {
+      this.category_ref = ref
+    },
     movePage(pageNum) {
       //현재 페이지를 수정하고
       this.pagingData.pageNum = pageNum
@@ -148,10 +238,11 @@ export default {
           params: {
             farmer_email: this.farmer_email,
             pageNum: this.pagingData.pageNum,
+            category_ref: this.category_ref,
           },
         })
         .then((res) => {
-          console.log(res.data)
+          console.log(res.data.goodsList)
           this.goodsList = res.data.goodsList
           this.pagingData = res.data.pagingData
           this.category_lows = res.data.category_low
@@ -163,11 +254,31 @@ export default {
 
 <style scoped>
 .myshop_main {
+  position: relative;
   margin-top: 54px;
+}
+
+.farmerName {
+  font-size: 30px;
+  font-weight: bold;
 }
 
 .divid {
   border: 0.5px solid black;
+}
+
+.active {
+  color: #00d458;
+}
+
+.sticky_top {
+  position: sticky;
+  top: 5px;
+  z-index: 99;
+}
+
+.nav-item {
+  background-color: white;
 }
 
 .thumb {
