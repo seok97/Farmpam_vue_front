@@ -30,7 +30,7 @@ export default {
     Nav,
     Shopnav,
   },
-  // beforeCreate() {
+  // created() {
   //   this.$router.push("/")
   // },
 }

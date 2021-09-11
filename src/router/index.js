@@ -73,6 +73,21 @@ const routes = [
     name: "MyShop",
     component: () => import("../components/MyShop"),
   },
+  {
+    path: "/shop/myshopmgmt/:pagename",
+    name: "MyShopAdmin",
+    component: () => import("../components/MyShopAdmin"),
+  },
+  {
+    path: "/shop/goodsupdate/:pagename",
+    name: "MyGoodsUpdate",
+    component: () => import("../components/MygoodsUpdate"),
+  },
+  {
+    path: "/shop/insertItem/:pagename",
+    name: "insertItem",
+    component: () => import("../components/MyGoodsInsert"),
+  },
 ]
 
 const router = new VueRouter({

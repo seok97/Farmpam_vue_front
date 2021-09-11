@@ -4,8 +4,10 @@
       <div class="col-10 farmerName">
         <span>{{ this.$route.params.farmer_name }}</span>
       </div>
-      <div class="col-2">
-        <button v-if="$store.getters.getToken">상점관리</button>
+      <div class="col-2" v-if="$store.getters.getChk == 'chk_farmer'">
+        <router-link to="/shop/myshopmgmt/shoppage">
+          <button>상점관리</button>
+        </router-link>
       </div>
     </div>
     <div class="row sticky_top">
@@ -188,7 +190,7 @@ export default {
       pagingData: {
         pageNum: 1,
         startPageNum: 1,
-        endPageNum: 5,
+        endPageNum: 0,
         totalPageCount: 0,
       },
       category: "",

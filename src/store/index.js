@@ -58,6 +58,9 @@ export default new Vuex.Store({
     getToken(state) {
       return state.logintoken.token
     },
+    getChk(state) {
+      return state.logintoken.chk
+    },
   },
   plugins: [
     createPersistedState({
