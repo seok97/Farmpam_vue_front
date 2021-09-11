@@ -1,7 +1,5 @@
 <template>
-  <div class="mygoodsupdate">
-    <h1>this is update form</h1>
-  </div>
+  <div class="mygoodsupdate"></div>
 </template>
 
 <script>

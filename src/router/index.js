@@ -88,6 +88,16 @@ const routes = [
     name: "insertItem",
     component: () => import("../components/MyGoodsInsert"),
   },
+  {
+    path: "/shop/cart/:pagename",
+    name: "Cart",
+    component: () => import("../components/Item_bucket"),
+  },
+  {
+    path: "/shop/buy/:pagename",
+    name: "Buy",
+    component: () => import("../components/Item_buy"),
+  },
 ]
 
 const router = new VueRouter({

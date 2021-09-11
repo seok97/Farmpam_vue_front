@@ -83,7 +83,9 @@
                     />
                   </router-link>
                   <div class="group_btn">
-                    <button>장바구니/좋아요</button>
+                    <button @click="insertCart(item.item_idx)">
+                      장바구니/좋아요
+                    </button>
                   </div>
                 </div>
                 <div class="row info">
@@ -145,6 +147,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex"
 export default {
   name: "ShopCategory",
   data() {
@@ -178,6 +181,7 @@ export default {
       }
       return nums
     },
+    ...mapState(["logintoken"]),
   },
   watch: {
     "$route.params.category": function(current) {
@@ -192,6 +196,29 @@ export default {
     this.getGoodsList()
   },
   methods: {
+    insertCart(idx) {
+      console.log(idx)
+      console.log(this.logintoken.email)
+      if (!this.logintoken.token) {
+        alert("로그인해야 장바구니에 담을 수 있어요")
+      } else {
+        this.$http
+          .get("/item/private/addcart.do", {
+            params: {
+              item_idx: idx,
+              email: this.logintoken.email,
+            },
+          })
+          .then((res) => {
+            console.log(res.data)
+            if (res.data.isSuccess) {
+              alert("장바구니 추가완료!")
+            } else {
+              alert("추가 실패!")
+            }
+          })
+      }
+    },
     selCateLow(top_idx) {
       this.category_top_idx = top_idx
       this.getGoodsList()
