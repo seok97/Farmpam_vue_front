@@ -175,6 +175,7 @@ export default {
             params: {
               item_idx: idx,
               email: this.logintoken.email,
+              cart_amount: this.buyInfo.cart_amount,
             },
           })
           .then((res) => {
