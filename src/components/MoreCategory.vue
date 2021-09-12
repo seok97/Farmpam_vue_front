@@ -41,11 +41,11 @@
                     alt=""
                   />
                 </router-link>
-                <div v-if="logintoken.chk != 'chk_farmer'" class="group_btn">
-                  <button @click="insertCart(item.item_idx)">
-                    장바구니/좋아요
-                  </button>
-                </div>
+                <div
+                  v-if="logintoken.chk != 'chk_farmer'"
+                  class="group_btn"
+                  @click="insertCart(item.item_idx)"
+                ></div>
               </div>
               <div class="row info">
                 <router-link to="" class="row">
@@ -71,6 +71,10 @@ export default {
     return {
       list: [],
       category: "",
+      buyInfo: {
+        item_idx: 0,
+        cart_amount: 0,
+      },
     }
   },
   computed: mapState(["logintoken"]),
@@ -86,6 +90,32 @@ export default {
     this.getList()
   },
   methods: {
+    insertCart(idx) {
+      console.log(idx)
+      console.log(this.logintoken.email)
+      if (!this.logintoken.token) {
+        alert("로그인해야 장바구니에 담을 수 있어요")
+      } else {
+        this.$http
+          .get("/item/private/addcart.do", {
+            params: {
+              item_idx: idx,
+              email: this.logintoken.email,
+              cart_amount: this.buyInfo.cart_amount,
+            },
+          })
+          .then((res) => {
+            console.log(res.data)
+            if (res.data.isSuccess) {
+              alert("장바구니 추가완료!")
+            } else if (res.data.exists) {
+              alert("이미 장바구니에 있는 상품입니다.")
+            } else {
+              alert("추가 실패!")
+            }
+          })
+      }
+    },
     getList() {
       this.$http
         .get("/vue/shopmain/list.do", {
@@ -117,7 +147,8 @@ export default {
 
 .item {
   height: 100%;
-  border: 1px black solid;
+  border: 0.6px gainsboro solid;
+  border-radius: 3%;
 }
 
 .thumb {
@@ -132,10 +163,19 @@ export default {
 }
 
 .group_btn {
+  box-sizing: border-box;
   position: absolute;
   z-index: 2;
   right: 15px;
   bottom: 15px;
   width: fit-content;
+  height: 45px;
+  width: 45px;
+  background: url(https://res.kurly.com/pc/ico/2010/ico_cart.svg) no-repeat 50%
+    50%;
+}
+
+.group_btn:hover {
+  cursor: pointer;
 }
 </style>

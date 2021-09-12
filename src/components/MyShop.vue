@@ -200,6 +200,10 @@ export default {
       category_lows: [],
       category_top_idx: 0,
       category_ref: 0,
+      buyInfo: {
+        item_idx: 0,
+        cart_amount: 0,
+      },
     }
   },
   watch: {
@@ -228,6 +232,32 @@ export default {
     this.getMyList()
   },
   methods: {
+    insertCart(idx) {
+      console.log(idx)
+      console.log(this.logintoken.email)
+      if (!this.logintoken.token) {
+        alert("로그인해야 장바구니에 담을 수 있어요")
+      } else {
+        this.$http
+          .get("/item/private/addcart.do", {
+            params: {
+              item_idx: idx,
+              email: this.logintoken.email,
+              cart_amount: this.buyInfo.cart_amount,
+            },
+          })
+          .then((res) => {
+            console.log(res.data)
+            if (res.data.isSuccess) {
+              alert("장바구니 추가완료!")
+            } else if (res.data.exists) {
+              alert("이미 장바구니에 있는 상품입니다.")
+            } else {
+              alert("추가 실패!")
+            }
+          })
+      }
+    },
     changeCategory(ref) {
       this.category_ref = ref
     },
@@ -303,13 +333,24 @@ export default {
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
+  border: 0.6px gainsboro solid;
+  border-radius: 3%;
 }
 
 .group_btn {
+  box-sizing: border-box;
   position: absolute;
   z-index: 2;
   right: 15px;
   bottom: 15px;
   width: fit-content;
+  height: 45px;
+  width: 45px;
+  background: url(https://res.kurly.com/pc/ico/2010/ico_cart.svg) no-repeat 50%
+    50%;
+}
+
+.group_btn:hover {
+  cursor: pointer;
 }
 </style>
