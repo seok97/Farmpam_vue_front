@@ -65,25 +65,6 @@
         </div>
       </div>
     </section>
-
-    <section class="content03 container">
-      <div class="row ctt02wrap">
-        <div class="ctt02_img col-md-5">
-          <div class="ctt02_img_wrapper">
-            <img src="../assets/images/farmer.jpg" class="rounded" alt="" />
-          </div>
-        </div>
-        <div class="ctt02_imglab col-md-4">
-          <h3 class="mb-3">믿고 구매할 수 있어요!</h3>
-          <p>
-            농장 SNS를 통해 .... 주말농장과 같은 나만의 농장 찾기... your own
-            plugin and interact with the others. You can add usefull,
-            highly-demands front-end development tools and libraries as a plugin
-            by using superplate CLI
-          </p>
-        </div>
-      </div>
-    </section>
   </div>
 </template>
 
@@ -91,11 +72,10 @@
 export default {
   name: "Home",
   components: {},
-};
+}
 </script>
 
-<style>
-</style>
+<style></style>
 
 <style scoped>
 section {
@@ -115,10 +95,13 @@ section {
 }
 
 .content01,
-.content02,
 .content03 {
   height: 100vh;
   width: 100%;
+}
+
+.content02 {
+  height: 70vh;
 }
 .home_img {
   width: 100%;

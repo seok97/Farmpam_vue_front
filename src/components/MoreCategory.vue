@@ -133,6 +133,9 @@ export default {
 </script>
 
 <style scoped>
+a {
+  text-decoration: none;
+}
 .more_root {
   margin-top: 54px;
 }
@@ -147,7 +150,6 @@ export default {
 
 .item {
   height: 100%;
-  border: 0.6px gainsboro solid;
   border-radius: 3%;
 }
 
@@ -160,6 +162,32 @@ export default {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.title {
+  overflow: hidden;
+  max-height: 58px;
+  font-weight: 400;
+  font-size: 20px;
+  color: #333;
+  line-height: 29px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  word-wrap: break-word;
+}
+
+.cost {
+  font-weight: 800;
+  color: #333;
+}
+
+.content {
+  display: block;
+  padding-top: 11px;
+  font-size: 13px;
+  color: #999;
+  line-height: 19px;
 }
 
 .group_btn {

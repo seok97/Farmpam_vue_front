@@ -81,7 +81,7 @@
       </div>
     </div>
     <div class="row divid"></div>
-    <div class="row">
+    <div class="row d-flex justify-content-center">
       <ul
         v-if="goodsList.length == 0"
         class="list row row-cols-2 row-cols-sm-2 row-cols-md-3 justify-content-center mt-5 mb-5"
@@ -289,6 +289,9 @@ export default {
 </script>
 
 <style scoped>
+a {
+  text-decoration: none;
+}
 .myshop_main {
   position: relative;
   margin-top: 54px;
@@ -301,10 +304,11 @@ export default {
 
 .divid {
   border: 0.5px solid black;
+  margin-bottom: 30px;
 }
 
 .active {
-  color: #00d458;
+  color: #f6b22f;
 }
 
 .sticky_top {
@@ -315,6 +319,10 @@ export default {
 
 .nav-item {
   background-color: white;
+}
+
+.list-group-item {
+  border: none;
 }
 
 .thumb {
@@ -328,12 +336,38 @@ export default {
   object-fit: cover;
 }
 
+.title {
+  overflow: hidden;
+  max-height: 58px;
+  font-weight: 400;
+  font-size: 20px;
+  color: #333;
+  line-height: 29px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  word-wrap: break-word;
+}
+
+.cost {
+  font-weight: 800;
+  color: #333;
+}
+
+.content {
+  display: block;
+  padding-top: 11px;
+  font-size: 13px;
+  color: #999;
+  line-height: 19px;
+}
+
 .item {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
-  border: 0.6px gainsboro solid;
+
   border-radius: 3%;
 }
 

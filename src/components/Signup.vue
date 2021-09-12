@@ -9,6 +9,11 @@
               원하는 농장과 농작물들을 보려면 가입하세요
             </p>
             <a class="btn btn-primary mb-3" href="#">구글계정으로 로그인</a>
+            <br />
+            <router-link class="btn btn-success mb-3" to="/farmersignup">
+              농부로 가입하기
+            </router-link>
+
             <div class="line">
               <p class="or">또는</p>
             </div>
@@ -121,11 +126,6 @@
 
             <!--  -->
           </div>
-          <button class="btn btn-black">
-            <router-link to="/farmersignup">
-              농부로 가입하기
-            </router-link>
-          </button>
         </div>
       </div>
     </div>
@@ -203,6 +203,145 @@ export default {
 </script>
 
 <style scoped>
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol,
+ul {
+  list-style: none;
+}
+blockquote,
+q {
+  quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.section {
+  position: relative;
+  padding: 75px 0;
+}
+
+.inner {
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
 .signup {
   background-color: rgba(var(--b3f, 250, 250, 250), 1);
 }
@@ -233,10 +372,6 @@ input {
 .logo {
   width: 300px;
   height: 140px;
-}
-
-.btn {
-  width: 250px;
 }
 
 .line--title {
@@ -270,5 +405,14 @@ input {
   height: 1px;
   font-size: 0px;
   line-height: 0px;
+}
+
+.input__addr {
+  display: inline-flex;
+  justify-content: center;
+}
+
+.form-control {
+  display: inline;
 }
 </style>

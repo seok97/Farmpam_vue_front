@@ -17,7 +17,7 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 orange">
           <li class="nav-item dropdown">
             <a
               class="nav-link"
@@ -116,7 +116,7 @@
           <li class="nav-item">
             <!--  -->
             <a
-              class="nav-link dropdown-toggle"
+              class="nav-link dropdown-toggle infoitem"
               href="#"
               id="navbarDropdown"
               role="button"
@@ -158,6 +158,12 @@
               <li>
                 <router-link to="/signup" class="dropdown-item"
                   >회원가입</router-link
+                >
+              </li>
+              <li><hr class="dropdown-divider" /></li>
+              <li>
+                <router-link to="/sns" class="nav-link"
+                  >Farmstargram</router-link
                 >
               </li>
             </ul>
@@ -226,7 +232,9 @@
             <!--  -->
           </li>
 
-          <li class="nav-item cart">
+          <li
+            class="nav-item cart d-flex justify-content-center align-items-center"
+          >
             <router-link
               :to="{
                 name: 'Cart',
@@ -271,13 +279,26 @@ export default {
 </script>
 
 <style scoped>
+a {
+  text-decoration: none;
+}
+
+.infoitem,
+.cart a {
+  color: white;
+}
+
+.orange {
+  color: #f6b22f;
+}
+
 .nav {
   box-sizing: border-box;
   height: 54px;
   width: 100%;
   border-bottom: 1px solid rgba(var(--b6a, 219, 219, 219), 1);
   position: absolute;
-  background-color: #00d458;
+  background-color: #f6b22f;
   z-index: 100;
   display: flex;
   justify-content: center;

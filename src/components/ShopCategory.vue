@@ -213,13 +213,13 @@ export default {
       console.log(this.logintoken.email)
       if (!this.logintoken.token) {
         alert("로그인해야 장바구니에 담을 수 있어요")
+        this.$route.push("/login")
       } else {
         this.$http
           .get("/item/private/addcart.do", {
             params: {
               item_idx: idx,
               email: this.logintoken.email,
-              cart_amount: this.buyInfo.cart_amount,
             },
           })
           .then((res) => {
@@ -278,6 +278,10 @@ export default {
 </script>
 
 <style scoped>
+a {
+  text-decoration: none;
+}
+
 .shop_category {
   margin-top: 54px;
 }
@@ -293,7 +297,7 @@ export default {
 }
 
 .active_category {
-  color: #00d458;
+  color: #f6b22f;
   font-weight: bold;
 }
 
@@ -307,7 +311,7 @@ export default {
 
 .item {
   height: 100%;
-  border: 0.6px gainsboro solid;
+
   border-radius: 3%;
 }
 
@@ -320,6 +324,32 @@ export default {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.title {
+  overflow: hidden;
+  max-height: 58px;
+  font-weight: 400;
+  font-size: 20px;
+  color: #333;
+  line-height: 29px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  word-wrap: break-word;
+}
+
+.cost {
+  font-weight: 800;
+  color: #333;
+}
+
+.content {
+  display: block;
+  padding-top: 11px;
+  font-size: 13px;
+  color: #999;
+  line-height: 19px;
 }
 
 .group_btn {

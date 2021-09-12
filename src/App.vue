@@ -75,7 +75,7 @@ window.addEventListener(
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(#98d656b4, #5eeef375);
+  background: linear-gradient(#f6b22f, #3dff4d75);
   border-radius: 5px;
 }
 
