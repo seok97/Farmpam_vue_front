@@ -55,9 +55,15 @@
               <div class="col">개수 선택</div>
               <div class="col">
                 <span class="count"
-                  ><button type="button" class="btn down on">-</button>
-                  <input type="number" readonly="readonly" />
-                  <button type="button" class="btn up on">
+                  ><button
+                    @click="amountminus()"
+                    type="button"
+                    class="btn down on"
+                  >
+                    -
+                  </button>
+                  <input v-model="buyInfo.cart_amount" type="number" />
+                  <button @click="amountplus()" type="button" class="btn up on">
                     +
                   </button></span
                 >
@@ -65,12 +71,26 @@
             </li>
             <li class="row mt-4 total_price">
               <div class="col">상품 총 가격</div>
-              <div class="col">xxxxx 원</div>
+              <div class="col">
+                {{ buyInfo.cart_amount * goodsData.item_price }} 원
+              </div>
             </li>
           </ul>
         </div>
         <div class="row">
-          <button>장바구니</button>
+          <div class="col d-flex justify-content-center">
+            <button
+              @click="insertCart(goodsData.item_idx)"
+              class="btn btn-secondary"
+            >
+              장바구니 담기
+            </button>
+          </div>
+          <div class="col d-flex justify-content-center">
+            <button class="btn btn-secondary" @click="buynow()">
+              바로구매하기
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -80,17 +100,101 @@
 </template>
 
 <script>
+import { mapState } from "vuex"
 export default {
   name: "GoodsDetail",
+  computed: mapState(["logintoken"]),
+  watch: {
+    cart_amount(current) {
+      this.cart_amount = current
+      this.buyInfo.cart_price = current * this.goodsData.item_price
+    },
+  },
   data() {
     return {
       goodsData: {},
+      buyInfo: {
+        item_idx: 0,
+        cart_amount: 0,
+      },
     }
   },
+
   created() {
     this.getGoods()
   },
   methods: {
+    amountplus() {
+      this.buyInfo.cart_amount++
+    },
+    amountminus() {
+      if (this.buyInfo.cart_amount > 0) {
+        this.buyInfo.cart_amount--
+      }
+    },
+    buynow() {
+      if (!this.logintoken.token) {
+        alert("로그인해야 장바구니에 담을 수 있어요")
+      } else if (this.buyInfo.cart_amount <= 0) {
+        alert("상품개수를 선택해 주세요 !")
+      } else {
+        this.$http
+          .get("/item/private/addcart.do", {
+            params: {
+              item_idx: this.goodsData.item_idx,
+              email: this.logintoken.email,
+              cart_amount: this.buyInfo.cart_amount,
+            },
+          })
+          .then((res) => {
+            console.log(res.data)
+            if (res.data.isSuccess) {
+              this.$router.push({ path: "/shop/buy/shoppage" })
+            } else if (res.data.exists) {
+              alert("이미 장바구니에 있는 상품입니다.")
+              this.$router.push({
+                name: "Cart",
+                params: {
+                  pagename: "shoppage",
+                },
+              })
+            } else {
+              alert("추가 실패!")
+            }
+          })
+      }
+    },
+    insertCart(idx) {
+      console.log(idx)
+      console.log(this.logintoken.email)
+      if (!this.logintoken.token) {
+        alert("로그인해야 장바구니에 담을 수 있어요")
+      } else {
+        this.$http
+          .get("/item/private/addcart.do", {
+            params: {
+              item_idx: idx,
+              email: this.logintoken.email,
+            },
+          })
+          .then((res) => {
+            console.log(res.data)
+            if (res.data.isSuccess) {
+              alert("장바구니 추가완료!")
+            } else if (res.data.exists) {
+              alert("이미 장바구니에 있는 상품입니다.")
+              this.$router.push({
+                name: "Cart",
+                params: {
+                  pagename: "shoppage",
+                },
+              })
+            } else {
+              alert("추가 실패!")
+            }
+          })
+      }
+    },
     getGoods() {
       const idx = this.$route.params.itemId
       this.$http

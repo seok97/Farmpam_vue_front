@@ -55,7 +55,6 @@
 </template>
 
 <script>
-import axios from "axios"
 import { mapState } from "vuex"
 
 export default {
@@ -80,8 +79,8 @@ export default {
     updateCart() {
       let self = this
 
-      axios
-        .get("http://localhost:8888/farmpam/vue/item/cart.do", {
+      this.$http
+        .get("item/private/cart.do", {
           params: {
             email: this.logintoken.email,
           },

@@ -28,16 +28,16 @@
       </div>
     </div>
 
-    <div class="section row reco">
+    <div class="section row reco d-flex justify-content-center">
       <div class="row">
         <a href="">
           <h1>지금 가장 신선한 상품</h1>
         </a>
       </div>
-      <div class="row">
+      <div class="row d-flex justify-content-center">
         <div class="list_goods row justify-content-center">
-          <div class="row">
-            <ul class="list row row-cols-2 row-cols-sm-2 row-cols-md-4">
+          <div class="row d-flex justify-content-center">
+            <ul class="list row row-cols-1 row-cols-md-2 row-cols-xxl-4">
               <li
                 v-for="(item, index) in itemList.newList"
                 :key="index"
@@ -68,17 +68,18 @@
                     <div
                       v-if="logintoken.chk != 'chk_farmer'"
                       class="group_btn"
-                    >
-                      <button @click="insertCart(item.item_idx)">
-                        장바구니/좋아요
-                      </button>
-                    </div>
+                      @click="insertCart(item.item_idx)"
+                    ></div>
                   </div>
                   <div class="row info">
                     <router-link to="" class="row">
                       <span class="title">{{ item.item_title }}</span>
-                      <span class="cost">{{ item.item_price }} 원</span>
-                      <span class="content">{{ item.item_content }}</span>
+                      <span class="cost mt-1 mb-1"
+                        >{{ item.item_price }} 원</span
+                      >
+                      <span class="content"
+                        >{{ item.item_content.substring(0, 60) }}...
+                      </span>
                     </router-link>
                   </div>
                 </div>
@@ -129,11 +130,8 @@
                     <div
                       v-if="logintoken.chk != 'chk_farmer'"
                       class="group_btn"
-                    >
-                      <button @click="insertCart(item.item_idx)">
-                        장바구니/좋아요
-                      </button>
-                    </div>
+                      @click="insertCart(item.item_idx)"
+                    ></div>
                   </div>
                   <div class="row info">
                     <router-link to="" class="row">
@@ -190,11 +188,8 @@
                     <div
                       v-if="logintoken.chk != 'chk_farmer'"
                       class="group_btn"
-                    >
-                      <button @click="insertCart(item.item_idx)">
-                        장바구니/좋아요
-                      </button>
-                    </div>
+                      @click="insertCart(item.item_idx)"
+                    ></div>
                   </div>
                   <div class="row info">
                     <router-link to="" class="row">
@@ -231,6 +226,31 @@ export default {
     this.getMainList()
   },
   methods: {
+    insertCart(idx) {
+      console.log(idx)
+      console.log(this.logintoken.email)
+      if (!this.logintoken.token) {
+        alert("로그인해야 장바구니에 담을 수 있어요")
+      } else {
+        this.$http
+          .get("/item/private/addcart.do", {
+            params: {
+              item_idx: idx,
+              email: this.logintoken.email,
+            },
+          })
+          .then((res) => {
+            console.log(res.data)
+            if (res.data.isSuccess) {
+              alert("장바구니 추가완료!")
+            } else if (res.data.exists) {
+              alert("이미 장바구니에 있는 상품입니다.")
+            } else {
+              alert("추가 실패!")
+            }
+          })
+      }
+    },
     getMainList() {
       this.$http.get("/vue/shopmain.do").then((res) => {
         console.log(res.data)
@@ -242,6 +262,11 @@ export default {
 </script>
 
 <style scoped>
+a {
+  text-decoration: none;
+  color: grey;
+}
+
 .shopmain {
   margin-top: 54px;
 }
@@ -256,6 +281,7 @@ export default {
 
 .list-group-item {
   border: none;
+  height: fit-content;
 }
 
 .itemLink {
@@ -264,7 +290,8 @@ export default {
 
 .item {
   height: 100%;
-  border: 1px black solid;
+  border: 0.6px gainsboro solid;
+  border-radius: 3%;
 }
 
 .thumb {
@@ -279,10 +306,19 @@ export default {
 }
 
 .group_btn {
+  box-sizing: border-box;
   position: absolute;
   z-index: 2;
   right: 15px;
   bottom: 15px;
   width: fit-content;
+  height: 45px;
+  width: 45px;
+  background: url(https://res.kurly.com/pc/ico/2010/ico_cart.svg) no-repeat 50%
+    50%;
+}
+
+.group_btn:hover {
+  cursor: pointer;
 }
 </style>
