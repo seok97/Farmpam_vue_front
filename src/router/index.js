@@ -98,6 +98,11 @@ const routes = [
     name: "Buy",
     component: () => import("../components/Item_buy"),
   },
+  {
+    path: "/shop/more/:pagename?/:category",
+    name: "MoreCategory",
+    component: () => import("../components/MoreCategory"),
+  },
 ]
 
 const router = new VueRouter({

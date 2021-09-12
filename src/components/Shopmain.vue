@@ -30,9 +30,9 @@
 
     <div class="section row reco d-flex justify-content-center">
       <div class="row">
-        <a href="">
+        <router-link to="/shop/more/shoppage/new" class="nav-link">
           <h1>지금 가장 신선한 상품</h1>
-        </a>
+        </router-link>
       </div>
       <div class="row d-flex justify-content-center">
         <div class="list_goods row justify-content-center">
@@ -92,9 +92,9 @@
 
     <div class="section row sale">
       <div class="row">
-        <a href="">
+        <router-link to="/shop/more/shoppage/close" class="nav-link">
           <h1>품절 임박 상품</h1>
-        </a>
+        </router-link>
       </div>
       <div class="row">
         <div class="list_goods row justify-content-center">
@@ -150,9 +150,9 @@
 
     <div class="section row hots">
       <div class="row">
-        <a href="">
+        <router-link to="/shop/more/shoppage/vegan" class="nav-link">
           <h1>지구를 위해 채식 실천하기</h1>
-        </a>
+        </router-link>
       </div>
       <div class="row">
         <div class="list_goods row justify-content-center">

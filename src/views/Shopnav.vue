@@ -64,13 +64,19 @@
             </ul>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">신상품</a>
+            <router-link to="/shop/more/shoppage/new" class="nav-link">
+              신선상품
+            </router-link>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">베스트</a>
+            <router-link to="/shop/more/shoppage/vegan" class="nav-link"
+              >비건식품</router-link
+            >
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">특가/혜택</a>
+            <router-link to="/shop/more/shoppage/close" class="nav-link"
+              >품절임박!</router-link
+            >
           </li>
         </ul>
         <div class="d-flex">

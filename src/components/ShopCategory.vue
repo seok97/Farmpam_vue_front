@@ -53,7 +53,15 @@
         <div class="col">정렬버튼</div>
       </div>
       <div class="list_goods row justify-content-center">
-        <div class="row">
+        <div class="row d-flex justify-content-center">
+          <ul
+            v-if="list.length == 0"
+            class="list row row-cols-2 row-cols-sm-2 row-cols-md-3 justify-content-center mt-5 mb-5"
+          >
+            <span class="text-muted text-center">
+              상품이 없어요 !
+            </span>
+          </ul>
           <ul class="list row row-cols-2 row-cols-sm-2 row-cols-md-3">
             <li
               v-for="(item, index) in list"

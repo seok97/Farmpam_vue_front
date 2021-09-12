@@ -169,6 +169,8 @@ export default {
       console.log(this.logintoken.email)
       if (!this.logintoken.token) {
         alert("로그인해야 장바구니에 담을 수 있어요")
+      } else if (this.buyInfo.cart_amount <= 0) {
+        alert("상품개수를 선택해 주세요 !")
       } else {
         this.$http
           .get("/item/private/addcart.do", {
@@ -182,6 +184,12 @@ export default {
             console.log(res.data)
             if (res.data.isSuccess) {
               alert("장바구니 추가완료!")
+              this.$router.push({
+                name: "Cart",
+                params: {
+                  pagename: "shoppage",
+                },
+              })
             } else if (res.data.exists) {
               alert("이미 장바구니에 있는 상품입니다.")
               this.$router.push({

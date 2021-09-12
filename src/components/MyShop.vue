@@ -118,9 +118,11 @@
                   alt=""
                 />
               </router-link>
-              <div class="group_btn">
-                <button>장바구니/좋아요</button>
-              </div>
+              <div
+                v-if="logintoken.chk != 'chk_farmer'"
+                class="group_btn"
+                @click="insertCart(item.item_idx)"
+              ></div>
             </div>
             <div class="row info">
               <router-link to="" class="row">
@@ -180,6 +182,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex"
 export default {
   name: "MyShop",
   data() {
@@ -219,6 +222,7 @@ export default {
       }
       return nums
     },
+    ...mapState(["logintoken"]),
   },
   created() {
     this.getMyList()
