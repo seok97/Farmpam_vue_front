@@ -31,35 +31,60 @@
     <div class="section row reco">
       <div class="row">
         <a href="">
-          <h1>이 상품 어때요?</h1>
+          <h1>지금 가장 신선한 상품</h1>
         </a>
       </div>
       <div class="row">
-        <div
-          class="col-md-3 col-6"
-          v-for="(item, index) in itemList"
-          v-bind:key="index"
-        >
-          <router-link
-            :to="{
-              name: 'GoodsDetail',
-              params: { pagename: 'shoppage', itemId: item.item_idx },
-            }"
-          >
-            <div v-if="index < 4" class="card h-100">
-              <img
-                v-bind:src="item.item_image"
-                class="card-img-top"
-                alt="..."
-              />
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">
-                  {{ item.item_content }}
-                </p>
-              </div>
-            </div>
-          </router-link>
+        <div class="list_goods row justify-content-center">
+          <div class="row">
+            <ul class="list row row-cols-2 row-cols-sm-2 row-cols-md-4">
+              <li
+                v-for="(item, index) in itemList.newList"
+                :key="index"
+                class="list-group-item "
+              >
+                <div class="item">
+                  <div class="row thumb">
+                    <router-link
+                      :to="{
+                        name: 'GoodsDetail',
+                        params: { pagename: 'shoppage', itemId: item.item_idx },
+                      }"
+                      class="itemLink"
+                    >
+                      <img
+                        v-if="item.item_image != 'empty'"
+                        class="items_iamge"
+                        :src="item.item_image"
+                        alt=""
+                      />
+                      <img
+                        v-else
+                        class="items_iamge"
+                        src="@/assets/images/xbox.png"
+                        alt=""
+                      />
+                    </router-link>
+                    <div
+                      v-if="logintoken.chk != 'chk_farmer'"
+                      class="group_btn"
+                    >
+                      <button @click="insertCart(item.item_idx)">
+                        장바구니/좋아요
+                      </button>
+                    </div>
+                  </div>
+                  <div class="row info">
+                    <router-link to="" class="row">
+                      <span class="title">{{ item.item_title }}</span>
+                      <span class="cost">{{ item.item_price }} 원</span>
+                      <span class="content">{{ item.item_content }}</span>
+                    </router-link>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
@@ -67,23 +92,59 @@
     <div class="section row sale">
       <div class="row">
         <a href="">
-          <h1>놓치면 후회할 가격</h1>
+          <h1>품절 임박 상품</h1>
         </a>
       </div>
       <div class="row">
-        <div
-          class="col-md-3 col-6"
-          v-for="(item, index) in itemList"
-          v-bind:key="index"
-        >
-          <div v-if="index < 4" class="card h-100">
-            <img v-bind:src="item.item_image" class="card-img-top" alt="..." />
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">
-                {{ item.item_content }}
-              </p>
-            </div>
+        <div class="list_goods row justify-content-center">
+          <div class="row">
+            <ul class="list row row-cols-2 row-cols-sm-2 row-cols-md-4">
+              <li
+                v-for="(item, index) in itemList.closeList"
+                :key="index"
+                class="list-group-item "
+              >
+                <div class="item">
+                  <div class="row thumb">
+                    <router-link
+                      :to="{
+                        name: 'GoodsDetail',
+                        params: { pagename: 'shoppage', itemId: item.item_idx },
+                      }"
+                      class="itemLink"
+                    >
+                      <img
+                        v-if="item.item_image != 'empty'"
+                        class="items_iamge"
+                        :src="item.item_image"
+                        alt=""
+                      />
+                      <img
+                        v-else
+                        class="items_iamge"
+                        src="@/assets/images/xbox.png"
+                        alt=""
+                      />
+                    </router-link>
+                    <div
+                      v-if="logintoken.chk != 'chk_farmer'"
+                      class="group_btn"
+                    >
+                      <button @click="insertCart(item.item_idx)">
+                        장바구니/좋아요
+                      </button>
+                    </div>
+                  </div>
+                  <div class="row info">
+                    <router-link to="" class="row">
+                      <span class="title">{{ item.item_title }}</span>
+                      <span class="cost">{{ item.item_price }} 원</span>
+                      <span class="content">{{ item.item_content }}</span>
+                    </router-link>
+                  </div>
+                </div>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
@@ -92,23 +153,59 @@
     <div class="section row hots">
       <div class="row">
         <a href="">
-          <h1>지금 가장 핫한 상품</h1>
+          <h1>지구를 위해 채식 실천하기</h1>
         </a>
       </div>
       <div class="row">
-        <div
-          class="col-md-3 col-6"
-          v-for="(item, index) in itemList"
-          v-bind:key="index"
-        >
-          <div v-if="index < 4" class="card h-100">
-            <img v-bind:src="item.item_image" class="card-img-top" alt="..." />
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">
-                {{ item.item_content }}
-              </p>
-            </div>
+        <div class="list_goods row justify-content-center">
+          <div class="row">
+            <ul class="list row row-cols-2 row-cols-sm-2 row-cols-md-4">
+              <li
+                v-for="(item, index) in itemList.veganList"
+                :key="index"
+                class="list-group-item "
+              >
+                <div class="item">
+                  <div class="row thumb">
+                    <router-link
+                      :to="{
+                        name: 'GoodsDetail',
+                        params: { pagename: 'shoppage', itemId: item.item_idx },
+                      }"
+                      class="itemLink"
+                    >
+                      <img
+                        v-if="item.item_image != 'empty'"
+                        class="items_iamge"
+                        :src="item.item_image"
+                        alt=""
+                      />
+                      <img
+                        v-else
+                        class="items_iamge"
+                        src="@/assets/images/xbox.png"
+                        alt=""
+                      />
+                    </router-link>
+                    <div
+                      v-if="logintoken.chk != 'chk_farmer'"
+                      class="group_btn"
+                    >
+                      <button @click="insertCart(item.item_idx)">
+                        장바구니/좋아요
+                      </button>
+                    </div>
+                  </div>
+                  <div class="row info">
+                    <router-link to="" class="row">
+                      <span class="title">{{ item.item_title }}</span>
+                      <span class="cost">{{ item.item_price }} 원</span>
+                      <span class="content">{{ item.item_content }}</span>
+                    </router-link>
+                  </div>
+                </div>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
@@ -119,6 +216,30 @@
     </div>
   </div>
 </template>
+
+<script>
+import { mapState } from "vuex"
+export default {
+  name: "Shopmain",
+  computed: mapState(["logintoken"]),
+  data() {
+    return {
+      itemList: {},
+    }
+  },
+  created() {
+    this.getMainList()
+  },
+  methods: {
+    getMainList() {
+      this.$http.get("/vue/shopmain.do").then((res) => {
+        console.log(res.data)
+        this.itemList = res.data
+      })
+    },
+  },
+}
+</script>
 
 <style scoped>
 .shopmain {
@@ -132,18 +253,36 @@
 .sale {
   background-color: rgb(247, 247, 247);
 }
-</style>
 
-<script>
-import { list } from "./test"
-
-export default {
-  name: "Shopmain",
-
-  data() {
-    return {
-      itemList: list,
-    }
-  },
+.list-group-item {
+  border: none;
 }
-</script>
+
+.itemLink {
+  height: 100%;
+}
+
+.item {
+  height: 100%;
+  border: 1px black solid;
+}
+
+.thumb {
+  position: relative;
+  height: 80%;
+}
+
+.items_iamge {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.group_btn {
+  position: absolute;
+  z-index: 2;
+  right: 15px;
+  bottom: 15px;
+  width: fit-content;
+}
+</style>

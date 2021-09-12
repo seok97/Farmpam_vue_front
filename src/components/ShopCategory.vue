@@ -82,7 +82,7 @@
                       alt=""
                     />
                   </router-link>
-                  <div class="group_btn">
+                  <div v-if="logintoken.chk != 'chk_farmer'" class="group_btn">
                     <button @click="insertCart(item.item_idx)">
                       장바구니/좋아요
                     </button>
@@ -213,6 +213,8 @@ export default {
             console.log(res.data)
             if (res.data.isSuccess) {
               alert("장바구니 추가완료!")
+            } else if (res.data.exists) {
+              alert("이미 장바구니에 있는 상품입니다.")
             } else {
               alert("추가 실패!")
             }

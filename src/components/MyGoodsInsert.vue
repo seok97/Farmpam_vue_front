@@ -39,15 +39,18 @@
               name="item_title"
               id="item_title"
               class="form-control"
+              placeholder="상품명을 적어주세요!"
             />
           </div>
           <div>
             <label for="item_content" class="form-label">설명</label>
             <input
+              maxlength="30"
               type="text"
               name="item_content"
               id="item_content"
               class="form-control"
+              placeholder="간단한 설명을 적어주세요!"
             />
           </div>
           <div>
@@ -57,6 +60,7 @@
               name="item_price"
               id="item_price"
               class="form-control"
+              placeholder="상품의 가격"
             />
           </div>
           <div>
@@ -66,6 +70,7 @@
               name="item_stock"
               id="item_stock"
               class="form-control"
+              placeholder="상품의 재고"
             />
           </div>
           <div>
