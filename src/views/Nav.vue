@@ -94,12 +94,9 @@
               >
             </li>
             <li>
-              <router-link to="/" class="dropdown-item"
-                >취소/반품 관리</router-link
+              <router-link to="/mypage" class="dropdown-item"
+                >내정보</router-link
               >
-            </li>
-            <li>
-              <router-link to="/" class="dropdown-item">상점관리</router-link>
             </li>
             <li><hr class="dropdown-divider" /></li>
             <li>
@@ -135,6 +132,7 @@
             <li>
               <router-link to="/" class="dropdown-item">주문관리</router-link>
             </li>
+
             <li><hr class="dropdown-divider" /></li>
             <li>
               <button @click="logout" class="dropdown-item">로그아웃</button>

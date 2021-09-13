@@ -9,7 +9,7 @@
         <div class="ctt01_wrapper02 d-flex row justify-content-evenly">
           <div class="mainintro col-md-5">
             <p class="mb-3">농장 SNS 팜팜을 사용해 보세요!</p>
-            <p>다양한 농장과 유기농 작물들을 살펴보세요!</p>
+            <p>다양한 농장과 유기농 작물들을 <br />살펴보세요!</p>
             <p>
               더보기
               <svg
@@ -48,19 +48,65 @@
       <div class="row ctt02wrap">
         <div class="ctt02_imglab col-md-4">
           <h3 class="mb-3">
-            팜팜은 농부와 고객님을 <br />
-            연결시켜주는 플랫폼입니다.
+            "팜팜은 직접 키운 작물들만 <br />
+            고객님들께 제공합니다"
           </h3>
+          <br />
           <p>
-            농장 SNS를 통해 .... 주말농장과 같은 나만의 농장 찾기... your own
-            plugin and interact with the others. You can add usefull,
-            highly-demands front-end development tools and libraries as a plugin
-            by using superplate CLI
+            내 가족이 먹는다는 생각으로 정직하게 판매하고 인정받는 마켓들만이
+            입점하도록 하고 있습니다. 건강하고 튼튼한 작물들을 판매하고 싶은
+            정직한 농장주들과 우리 가족 건강을 챙기고 싶어하는 고객들이
+            만들어가는 SNS형 쇼핑몰 입니다.
           </p>
         </div>
         <div class="ctt02_img col-md-5">
           <div class="ctt02_img_wrapper">
-            <img src="../assets/images/farmer.jpg" class="rounded" alt="" />
+            <img src="../assets/images/hpodo.jpg" class="rounded" alt="" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="content03 container">
+      <div class="row ctt02wrap">
+        <div class="ctt02_img col-md-5">
+          <div class="ctt02_img_wrapper">
+            <img src="../assets/images/himg.jpg" class="rounded" alt="" />
+          </div>
+        </div>
+        <div class="ctt02_imglab col-md-4">
+          <h3 class="mb-3">
+            "팜팜은 신선함을 유지하게끔 <br />당일 또는 익일배송만을 취급합니다"
+          </h3>
+          <br />
+          <p>
+            아무리 좋은 품질의 음식이라 한들 시간이 지나면 품질이 떨어질 수밖에
+            없습니다. 팜팜은 그런 점을 고려하여 모든 마켓이 당일배송 또는
+            익일배송 하도록 규정하고 있습니다. 어제 먹고 싶었던 음식을 신선하게,
+            오늘 받아보세요!
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="content02 container">
+      <div class="row ctt02wrap">
+        <div class="ctt02_imglab col-md-4">
+          <h3 class="mb-3">
+            "대화하고, 묻고, 보고, <br />
+            그리고 구매하세요!"
+          </h3>
+          <br />
+          <p>
+            딱딱한 텍스트 몇 자만 보고 구매하는 것이 정말 만족스러운 구매일까요?
+            저희 팜팜에서는 농장주와 직접 소통하고, 구매할 농작물들이 자라나는
+            과정을 모두 확인할 수 있습니다. 신선하고 좋은 음식들로 배를 채우고,
+            즐겁고 따뜻한 소통으로 마음을 채우세요!
+          </p>
+        </div>
+        <div class="ctt02_img col-md-5">
+          <div class="ctt02_img_wrapper">
+            <img src="../assets/images/himg2.jpg" class="rounded" alt="" />
           </div>
         </div>
       </div>
@@ -94,9 +140,13 @@ section {
   flex-direction: column;
 }
 
-.content01,
-.content03 {
+.content01 {
   height: 100vh;
+  width: 100%;
+}
+
+.content03 {
+  height: 80vh;
   width: 100%;
 }
 

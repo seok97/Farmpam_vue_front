@@ -2,8 +2,8 @@
   <div class="nav navbar navbar-expand-lg navbar-light">
     <div class="container-fluid">
       <router-link to="/shop/shoppage" class="navbar-brand"
-        >Farmpam</router-link
-      >
+        ><img src="../assets/images/logo.png" class="nav_logo"
+      /></router-link>
 
       <button
         class="navbar-toggler"
@@ -350,5 +350,9 @@ a {
   top: 3px;
   width: 30px;
   height: 30px;
+}
+
+.nav_logo {
+  height: 34px;
 }
 </style>

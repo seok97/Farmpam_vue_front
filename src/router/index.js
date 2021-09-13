@@ -102,6 +102,16 @@ const routes = [
     name: "BuyList",
     component: () => import("../components/BuyList"),
   },
+  {
+    path: "/mypage",
+    name: "Info",
+    component: () => import("../components/Info"),
+  },
+  {
+    path: "/Info_update",
+    name: "updateInfo",
+    component: () => import("../components/Info_update"),
+  },
 ]
 
 const router = new VueRouter({
