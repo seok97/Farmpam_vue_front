@@ -6,7 +6,7 @@
       </div>
       <div class="col-2" v-if="$store.getters.getChk == 'chk_farmer'">
         <router-link to="/shop/myshopmgmt/shoppage">
-          <button>상점관리</button>
+          <button class="btn mgmtbtn">상점관리</button>
         </router-link>
       </div>
     </div>
@@ -291,6 +291,11 @@ export default {
 <style scoped>
 a {
   text-decoration: none;
+}
+
+.mgmtbtn {
+  background-color: #f6b22f;
+  color: white;
 }
 .myshop_main {
   position: relative;

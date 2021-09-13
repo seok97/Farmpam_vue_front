@@ -1,11 +1,11 @@
 <template>
-  <div class="insertgoods">
+  <div class="insertgoods container">
     <div class="row">
       <h1>상품 추가하기</h1>
     </div>
     <div class="row">
       <div class="container">
-        <a id="imageLink" href="javascript:">
+        <a id="imageLink" href="javascript:" @click="clickImage()">
           <svg
             id="itemImage"
             xmlns="http://www.w3.org/2000/svg"
@@ -21,9 +21,11 @@
           </svg>
 
           <img
+            v-if="goods.item_image != 'empty'"
             id="itemImage"
-            src="${pageContext.request.contextPath}${dto.item_image}"
+            :src="goods.item_image"
           />
+          <img v-else id="itemImage" :src="goods.item_image" />
         </a>
         <form
           action="/item/insert.do"
@@ -116,16 +118,19 @@
         </form>
 
         <form
-          action="${pageContext.request.contextPath}/item/private/ajax_image_upload.do"
+          action="/item/private/ajax_image_upload.do"
           method="post"
           id="imageForm"
           enctype="multipart/form-data"
+          ref="insertimageform"
         >
           <input
             type="file"
             name="image"
             id="image"
             accept=".jpg, .jpeg, .png, .JPG, .JPEG, .gif"
+            @change="insertImage()"
+            ref="insertimage"
           />
         </form>
       </div>
@@ -142,6 +147,9 @@ export default {
     return {
       category_top: 0,
       category_lows: [],
+      goods: {
+        item_image: "empty",
+      },
     }
   },
   watch: {
@@ -151,14 +159,31 @@ export default {
       this.getCategory()
     },
   },
-  created() {},
+  created() {
+    if (!this.logintoken.token) {
+      this.$router.push("/shop/shoppage")
+    }
+  },
   methods: {
+    insertImage() {
+      const imageform = new FormData(this.$refs.insertimageform)
+      this.$http
+        .post("/item/private/ajax_image_upload.do", imageform)
+        .then((res) => {
+          console.log(res.data)
+          this.goods.item_image =
+            window.location.pathname.substring(
+              0,
+              window.location.pathname.indexOf("/", 2)
+            ) + res.data.imagePath
+        })
+    },
+    clickImage() {
+      this.$refs.insertimage.click()
+    },
     uploadItem() {
       const formdata = new FormData(this.$refs.itmeinsertform)
       formdata.append("farmer_email", this.logintoken.email)
-      console.log(formdata.get("item_title"))
-      console.log(formdata.get("item_category_top_ref"))
-      console.log("아이템 저장")
       this.$http
         .post("/item/private/insert.do", formdata)
         .then((res) => {
@@ -198,5 +223,18 @@ export default {
 <style scoped>
 .insertgoods {
   margin-top: 54px;
+}
+
+.form-label {
+  overflow: hidden;
+  max-height: 58px;
+  font-weight: 400;
+  font-size: 20px;
+  color: #333;
+  line-height: 29px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  word-wrap: break-word;
 }
 </style>

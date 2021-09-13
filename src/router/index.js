@@ -38,12 +38,6 @@ const routes = [
     component: () => import("../components/Social"),
   },
   {
-    // 삭제 예정
-    path: "/products",
-    name: "Products",
-    component: () => import("../components/Products.vue"),
-  },
-  {
     path: "/login",
     name: "Login",
     component: () => import("../components/Login"),
@@ -79,7 +73,7 @@ const routes = [
     component: () => import("../components/MyShopAdmin"),
   },
   {
-    path: "/shop/goodsupdate/:pagename",
+    path: "/shop/goodsupdate/:pagename?/:itemidx",
     name: "MyGoodsUpdate",
     component: () => import("../components/MygoodsUpdate"),
   },
@@ -102,6 +96,11 @@ const routes = [
     path: "/shop/more/:pagename?/:category",
     name: "MoreCategory",
     component: () => import("../components/MoreCategory"),
+  },
+  {
+    path: "/shop/buylist/:pagename",
+    name: "BuyList",
+    component: () => import("../components/BuyList"),
   },
 ]
 

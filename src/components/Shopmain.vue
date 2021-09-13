@@ -90,16 +90,16 @@
       </div>
     </div>
 
-    <div class="section row sale">
+    <div class="section row sale  d-flex justify-content-center">
       <div class="row">
         <router-link to="/shop/more/shoppage/close" class="nav-link">
           <h1>품절 임박 상품</h1>
         </router-link>
       </div>
-      <div class="row">
+      <div class="row justify-content-center">
         <div class="list_goods row justify-content-center">
-          <div class="row">
-            <ul class="list row row-cols-2 row-cols-sm-2 row-cols-md-4">
+          <div class="row justify-content-center">
+            <ul class="list row row-cols-1 row-cols-sm-2 row-cols-md-4">
               <li
                 v-for="(item, index) in itemList.closeList"
                 :key="index"
@@ -148,16 +148,16 @@
       </div>
     </div>
 
-    <div class="section row hots">
+    <div class="section row hots d-flex justify-content-center">
       <div class="row">
         <router-link to="/shop/more/shoppage/vegan" class="nav-link">
           <h1>지구를 위해 채식 실천하기</h1>
         </router-link>
       </div>
-      <div class="row">
+      <div class="row justify-content-center">
         <div class="list_goods row justify-content-center">
-          <div class="row">
-            <ul class="list row row-cols-2 row-cols-sm-2 row-cols-md-4">
+          <div class="row justify-content-center">
+            <ul class="list row row-cols-1 row-cols-sm-2 row-cols-md-4">
               <li
                 v-for="(item, index) in itemList.veganList"
                 :key="index"

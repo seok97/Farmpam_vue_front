@@ -18,13 +18,13 @@
                   <p>{{ tmp.item_title }}</p>
                 </div>
                 <div class="content--info--buynum">
-                  <p>구매 수량 : {{ tmp.item_num }}개</p>
+                  <p>구매 수량 : {{ tmp.cart_amount }}개</p>
                 </div>
               </div>
             </div>
             <div class="content--price--text">
               <div class="content--price">
-                <p>{{ tmp.item_price }} 원</p>
+                <p>{{ tmp.cart_price }} 원</p>
               </div>
             </div>
           </div>
@@ -45,13 +45,11 @@
                 name="customer_check"
                 id="customer_check"
               />
-              <label for="customer_check" @click="getList"
-                >구매자 정보가 맞습니다.</label
-              >
+              <label for="customer_check">구매자 정보가 맞습니다.</label>
             </div>
             <div class="destination--customer">
               <div class="customer--info">
-                <form action="">
+                <form action="" ref="orderform">
                   <div class="row g-2 input__group1">
                     <div class="col-md">
                       <div class="form-floating">
@@ -60,7 +58,8 @@
                           class="form-control"
                           name="name"
                           id="name"
-                          value=""
+                          readonly="readonly"
+                          :value="user.users_name"
                         />
                         <label for="name">받는 분 성함</label>
                       </div>
@@ -72,6 +71,7 @@
                           class="form-control"
                           name="phone"
                           id="phone"
+                          :value="user.users_phone"
                         />
                         <label for="phone">받는 분 전화번호</label>
                       </div>
@@ -85,6 +85,7 @@
                           class="form-control"
                           name="addr"
                           id="addr"
+                          :value="user.users_addr"
                         />
                         <label for="addr">받는 분 주소</label>
                       </div>
@@ -101,6 +102,7 @@
                           class="form-control"
                           name="addr_detail"
                           id="addr_detail"
+                          :value="user.users_addr_detail"
                         />
                         <label for="addr_detail">받는 분 상세주소</label>
                       </div>
@@ -138,7 +140,7 @@
           <div class="totalPay--inner">
             <div class="totalPay--content">
               <p class="total--title">총 결제금액</p>
-              <p class="total--pay">50,000원</p>
+              <p class="total--pay">{{ totalprice }} 원</p>
             </div>
           </div>
         </div>
@@ -152,48 +154,46 @@
 </template>
 
 <script>
-let list = [
-  {
-    item_idx: 0,
-    item_title: "귤 1kg",
-    item_price: 1000,
-    item_image: require("../assets/images/xbox.png"),
-    item_num: "5",
-  },
-  {
-    item_idx: 1,
-    item_title: "밤 1kg",
-    item_price: 12312,
-    item_image: require("../assets/images/xbox.png"),
-    item_num: "10",
-  },
-  {
-    item_idx: 2,
-    item_title: "감 1kg",
-    item_price: 55555,
-    item_image: require("../assets/images/xbox.png"),
-    item_num: "12",
-  },
-]
-
+import { mapState } from "vuex"
 export default {
   name: "Item_buy",
   data() {
     return {
-      list,
-
-      userList: [
-        {
-          users_name: "이충근",
-          users_number: "0100000000",
-          users_addr: "경기도 하남시 아리수로 565",
-          users_addr_detail: "하이하이",
-        },
-      ],
+      list: [],
+      user: {},
+      totalprice: 0,
     }
   },
-  computed: {},
-  methods: {},
+  watch: {},
+  computed: mapState(["logintoken"]),
+  created() {
+    this.list = this.$route.params.list
+    console.log(this.list)
+    this.getUser()
+    this.totalPrice()
+  },
+  methods: {
+    order() {
+      const order = new FormData(this.$refs.orderform)
+      order.append("email", this.logintoken.email)
+    },
+    totalPrice() {
+      for (let i = 0; i < this.list.length; i++) {
+        this.totalprice = this.totalprice + this.list[i].cart_price
+      }
+    },
+    getUser() {
+      this.$http
+        .get("/users/private/info.do", {
+          params: {
+            email: this.logintoken.email,
+          },
+        })
+        .then((res) => {
+          this.user = res.data.getInfo
+        })
+    },
+  },
 }
 </script>
 

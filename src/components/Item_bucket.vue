@@ -1,5 +1,5 @@
 <template>
-  <div id="item_bucket">
+  <div id="item_bucket container">
     <div class="section">
       <!-- 장바구니 상품 section -->
       <div class="section--bucket">
@@ -9,7 +9,12 @@
         <div class="buy--border">
           <div v-for="(tmp, idx) in items" :key="idx" class="content--inner">
             <div class="item--check">
-              <input type="checkbox" class="form-check-input item--checkBox" />
+              <input
+                type="checkbox"
+                class="form-check-input item--checkBox"
+                v-model="checkItems"
+                :value="tmp"
+              />
             </div>
             <div class="content--img">
               <img v-bind:src="tmp.item_image" />
@@ -43,7 +48,15 @@
 
       <div class="section--payBtn">
         <div class="payment--btn">
-          <router-link to="/shop/buy/shoppage">
+          <router-link
+            :to="{
+              name: 'Buy',
+              params: {
+                pagename: 'shoppage',
+                list: this.checkItems,
+              },
+            }"
+          >
             <button class="btn btn-primary">
               결제하기
             </button>
@@ -59,9 +72,16 @@ import { mapState } from "vuex"
 
 export default {
   name: "Item_bucket",
+  watch: {
+    checkItemidx(current) {
+      this.checkItemidx = current
+      console.log(current)
+    },
+  },
   data() {
     return {
       items: {},
+      checkItems: [],
     }
   },
   computed: mapState(["logintoken"]),
@@ -77,8 +97,6 @@ export default {
   },
   methods: {
     updateCart() {
-      let self = this
-
       this.$http
         .get("item/private/cart.do", {
           params: {
@@ -87,7 +105,7 @@ export default {
         })
         .then((res) => {
           console.log(res.data)
-          self.items = res.data.cartList
+          this.items = res.data.cartList
         })
         .catch((err) => {
           console.log(err)

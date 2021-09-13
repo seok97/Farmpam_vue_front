@@ -180,7 +180,9 @@
                 >
               </li>
               <li>
-                <router-link to="/" class="dropdown-item">주문목록</router-link>
+                <router-link to="/shop/buylist/shoppage" class="dropdown-item"
+                  >주문목록</router-link
+                >
               </li>
               <li>
                 <router-link to="/" class="dropdown-item"

@@ -89,13 +89,17 @@
               >
             </li>
             <li>
-              <router-link to="/" class="dropdown-item">주문목록</router-link>
+              <router-link to="/shop/buylist/shoppage" class="dropdown-item"
+                >주문목록</router-link
+              >
             </li>
             <li>
-              <router-link to="/" class="dropdown-item">취소/반품</router-link>
+              <router-link to="/" class="dropdown-item"
+                >취소/반품 관리</router-link
+              >
             </li>
             <li>
-              <router-link to="/" class="dropdown-item">찜리스트</router-link>
+              <router-link to="/" class="dropdown-item">상점관리</router-link>
             </li>
             <li><hr class="dropdown-divider" /></li>
             <li>

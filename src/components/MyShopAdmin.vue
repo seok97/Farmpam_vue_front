@@ -1,5 +1,5 @@
 <template>
-  <div class="shopmgmt_root row d-flex justify-content-center">
+  <div class="shopmgmt_root container row d-flex justify-content-center">
     <div class="row mt-5 mb-2">
       <div class="col-2"></div>
       <div class="col-8 text-center">
@@ -54,7 +54,7 @@
         <div
           v-for="(data, index) in goodsList"
           :key="index"
-          class="d-flex text-muted pt-3 row"
+          class="d-flex text-muted pt-3 row justify-content-around"
         >
           <img
             v-if="data.item_image != 'empty'"
@@ -64,17 +64,40 @@
           />
           <img v-else src="@/assets/images/xbox.png" alt="" class="col-3" />
 
-          <p class="pb-3 mb-0 small lh-sm border-bottom col-5">
+          <p
+            class="pb-3 mb-0 small lh-sm border-bottom col-5 d-flex justify-content-center align-items-center flex-column"
+          >
             <strong class="d-block text-gray-dark">{{
               data.item_title
             }}</strong>
             {{ data.item_content }}
           </p>
-          <div class="col-3 d-flex justify-content-center align-items-center">
+          <p
+            class="pb-3 mb-0 small lh-sm border-bottom col-1 d-flex justify-content-center align-items-center flex-column"
+          >
+            재고
+            <strong> {{ data.item_stock }} 개 </strong>
+          </p>
+          <div class="col-3 d-flex justify-content-around align-items-center">
             <button class="btn btn-light">
-              <router-link to="/shop/goodsupdate/shoppage" class="updatebtn">
+              <router-link
+                :to="{
+                  name: 'MyGoodsUpdate',
+                  params: {
+                    pagename: 'shoppage',
+                    itemidx: data.item_idx,
+                  },
+                }"
+                class="updatebtn"
+              >
                 수정하기
               </router-link>
+            </button>
+            <button
+              @click="itemDelete(data.item_idx)"
+              class="btn btn-light updatebtn"
+            >
+              삭제하기
             </button>
           </div>
         </div>
@@ -94,6 +117,9 @@ export default {
     }
   },
   created() {
+    if (!this.logintoken.token) {
+      this.$router.push("/shop/shoppage")
+    }
     if (this.logintoken.chk != "chk_farmer") {
       alert("판매자만 가능합니다.")
       this.$router.go(-1)
@@ -101,6 +127,27 @@ export default {
     this.getMyGoods()
   },
   methods: {
+    itemDelete(idx) {
+      console.log(idx)
+      console.log(this.logintoken.email)
+      if (confirm("상품을 삭제하시겠습니까?")) {
+        this.$http
+          .post("/item/private/delete.do", null, {
+            params: {
+              item_idx: idx,
+              email: this.logintoken.email,
+            },
+          })
+          .then((res) => {
+            console.log(res)
+            if (!res.data.deleteItem) {
+              alert("삭제를 실패했습니다.")
+            }
+          })
+      } else {
+        return
+      }
+    },
     getMyGoods() {
       this.$http
         .get("/item/private/list_admin.do", {
@@ -129,6 +176,7 @@ a {
 
 .shopmgmt_root {
   margin-top: 54px;
+  align-self: center;
 }
 
 .divid {
