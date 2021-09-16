@@ -14,6 +14,6 @@ npm run serve
 ![DB](./intro/dbs.PNG)
 
 # 디자인 설계
-[페이지 디자인 설계] (https://whimsical.com/farmpam-UCHNohTTMHwedQQ19xKcjF)
+[페이지 디자인 설계](https://whimsical.com/farmpam-UCHNohTTMHwedQQ19xKcjF)
 
 # 메인 페이지
