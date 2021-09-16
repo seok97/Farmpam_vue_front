@@ -21,6 +21,7 @@ npm run serve
 Whimsical 사이트를 사용.
 
 [Farmpam 페이지 디자인 설계](https://whimsical.com/farmpam-UCHNohTTMHwedQQ19xKcjF)
+![design](./intro/design.png)
 
 # 페이지 소개
 
@@ -34,19 +35,35 @@ Whimsical 사이트를 사용.
 ![sign](./intro/sign.png)
 
 ## 쇼핑몰 페이지
+
 ## 메인
+
 ![shoppage](./intro/shopmain.png)
+
 ## 이벤트 카테고리
+
 ![shoppage](./intro/cate.png)
+
 ## 카테고리 선택
+
 ![shoppage](./intro/catetop.PNG)
+
 ## 상품상세
+
 ![shoppage](./intro/detail.png)
+
 ## 판매자 상점
+
 ![shoppage](./intro/myshop.png)
+
 ## 내상점 관리
+
 ![shoppage](./intro/myshopset.png)
+
 ## 장바구니
+
 ![shoppage](./intro/cart.png)
+
 ## 상품 저장(올리기)
+
 ![shoppage](./intro/insert.png)
