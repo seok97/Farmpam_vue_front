@@ -39,7 +39,7 @@ Whimsical 사이트를 사용.
 ## 이벤트 카테고리
 ![shoppage](./intro/cate.png)
 ## 카테고리 선택
-![shoppage](./intro/catetop.png)
+![shoppage](./intro/catetop.PNG)
 ## 상품상세
 ![shoppage](./intro/detail.png)
 ## 판매자 상점
