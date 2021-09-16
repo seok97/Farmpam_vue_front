@@ -10,15 +10,10 @@ npm install
 npm run serve
 ```
 
-### Compiles and minifies for production
-```
-npm run build
-```
+# DB 구성
+![DB](./intro/dbs.PNG)
 
-### Lints and fixes files
-```
-npm run lint
-```
+# 디자인 설계
+[페이지 디자인 설계] (https://whimsical.com/farmpam-UCHNohTTMHwedQQ19xKcjF)
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+# 메인 페이지
