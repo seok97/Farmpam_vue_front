@@ -42,11 +42,7 @@ const routes = [
     name: "Login",
     component: () => import("../components/Login"),
   },
-  {
-    path: "/farmerlogin",
-    name: "FarmerLogin",
-    component: () => import("../components/FarmerLogin"),
-  },
+
   {
     path: "/farmersignup",
     name: "FarmerSign",
