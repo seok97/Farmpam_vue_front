@@ -113,7 +113,7 @@ const routes = [
     component: () => import("../components/Info_update"),
   },
   {
-    path: "/sns/insertContent/:pagename",
+    path: "/insertContent",
     name: "insertContent",
     component: () => import("../components/MyBoardInsert"),
   },

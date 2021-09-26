@@ -49,8 +49,8 @@
             <input
               maxlength="30"
               type="text"
-              name="item_content"
-              id="item_content"
+              name="board_content"
+              id="board_content"
               class="form-control"
               placeholder="내용을 작성해주세요..."
             />
@@ -59,7 +59,7 @@
         </form>
 
         <form
-          action="/item/private/ajax_image_upload.do"
+          action="/item/ajax_image_upload.do"
           method="post"
           id="imageForm"
           enctype="multipart/form-data"
@@ -114,17 +114,17 @@ export default {
     },
     uploadBoard() {
       const formdata = new FormData(this.$refs.boardinsertform)
-      formdata.append("farmer_email", this.logintoken.email)
+      formdata.append("board_writer", this.logintoken.email)
       this.$http
-        .post("/board/private/insert.do", formdata)
+        .post("/board/insert.do", formdata)
         .then((res) => {
           console.log(res.data)
           if (res.data.boardinsertItem) {
             alert("추가했습니다.")
             this.$router.push({
-              name: "MyShop",
+              name: "MySns",
               params: {
-                pagename: "shoppage",
+                pagename: "snspage",
                 farmer_email: this.logintoken.email,
                 farmer_name: this.logintoken.name,
               },
@@ -138,3 +138,22 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.insertgoods {
+  margin-top: 54px;
+}
+
+.form-label {
+  overflow: hidden;
+  max-height: 58px;
+  font-weight: 400;
+  font-size: 20px;
+  color: #333;
+  line-height: 29px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  word-wrap: break-word;
+}
+</style>
