@@ -112,6 +112,11 @@ const routes = [
     name: "updateInfo",
     component: () => import("../components/Info_update"),
   },
+  {
+    path: "/sns/insertContent/:pagename",
+    name: "insertContent",
+    component: () => import("../components/MyBoardInsert"),
+  },
 ]
 
 const router = new VueRouter({
