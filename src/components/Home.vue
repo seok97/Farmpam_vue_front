@@ -40,18 +40,6 @@
           >
             <span>농장 SNS 보러가기 -></span>
           </router-link>
-          <router-link
-            to="/insertContent"
-            class="
-              intlink
-              d-flex
-              col-md-2
-              justify-content-center
-              align-items-center
-            "
-          >
-            <span>농장 SNS 등록하기 -></span>
-          </router-link>
         </div>
       </div>
     </section>
