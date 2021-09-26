@@ -33,7 +33,7 @@
           @submit.prevent="uploadBoard()"
           ref="boardinsertform"
         >
-        <input type="hidden" name="board_image" value="empty" />
+        <input type="hidden" name="board_image" v-model="board.board_image" />
           <div>
             <label for="board_title" class="form-label">제목</label>
               <input
@@ -99,7 +99,7 @@ export default {
     insertImage() {
       const imageform = new FormData(this.$refs.insertimageform)
       this.$http
-        .post("/board/private/ajax_image_upload.do", imageform)
+        .post("/board/ajax_image_upload.do", imageform)
         .then((res) => {
           console.log(res.data)
           this.board.board_image =
