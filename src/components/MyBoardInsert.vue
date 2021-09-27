@@ -157,7 +157,7 @@ export default {
   word-wrap: break-word;
 }
 
-.boardImage {
+#boardImage {
   width: 80px;
   height: 80px;
 }
