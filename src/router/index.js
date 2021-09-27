@@ -113,6 +113,11 @@ const routes = [
     name: "insertContent",
     component: () => import("../components/MyBoardInsert"),
   },
+  {
+    path: "/updateContent/:itemidx",
+    name: "updateCContent",
+    component: () => import("../components/MyBoardUpdate"),
+  },
 ]
 
 const router = new VueRouter({

@@ -55,7 +55,7 @@
               placeholder="내용을 작성해주세요..."
             />
           </div>
-            <button type="submit">상품 추가</button>
+            <button type="submit">게시물 등록</button>
         </form>
 
         <form
