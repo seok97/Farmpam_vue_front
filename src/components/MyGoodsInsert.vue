@@ -237,4 +237,6 @@ export default {
   -webkit-box-orient: vertical;
   word-wrap: break-word;
 }
+
+
 </style>
