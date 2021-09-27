@@ -156,4 +156,10 @@ export default {
   -webkit-box-orient: vertical;
   word-wrap: break-word;
 }
+
+.boardImage {
+  width: 80px;
+  height: 80px;
+}
+
 </style>
