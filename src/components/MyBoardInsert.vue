@@ -158,8 +158,8 @@ export default {
 }
 
 #boardImage {
-  width: 80px;
-  height: 80px;
+  width: 400px;
+  height: 400px;
 }
 
 </style>
