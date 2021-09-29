@@ -144,7 +144,7 @@ main {
 
 footer {
   background-color: #f6b22f;
-  height: 120px;
+  height: 110px;
   display: flex;
   color: #ffffff;
   bottom: 0;
