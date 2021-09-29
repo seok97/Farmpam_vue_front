@@ -5,7 +5,7 @@
     </div>
     <div class="row">
       <div class="container">
-      <a id="imageLink" href="javascript:" @click="clickImage()">
+        <a id="imageLink" href="javascript:" @click="clickImage()">
           <svg
             id="boardImage"
             xmlns="http://www.w3.org/2000/svg"
@@ -33,16 +33,16 @@
           @submit.prevent="uploadBoard()"
           ref="boardinsertform"
         >
-        <input type="hidden" name="board_image" v-model="board.board_image" />
+          <input type="hidden" name="board_image" v-model="board.board_image" />
           <div>
             <label for="board_title" class="form-label">제목</label>
-              <input
-                type="text"
-                name="board_title"
-                id="board_title"
-                class="form-control"
-                placeholder="제목을 작성해주세요!"
-              />
+            <input
+              type="text"
+              name="board_title"
+              id="board_title"
+              class="form-control"
+              placeholder="제목을 작성해주세요!"
+            />
           </div>
           <div>
             <label for="board_content" class="form-label">내용</label>
@@ -55,7 +55,7 @@
               placeholder="내용을 작성해주세요..."
             />
           </div>
-            <button type="submit">상품 추가</button>
+          <button type="submit">상품 추가</button>
         </form>
 
         <form
@@ -73,7 +73,7 @@
             @change="insertImage()"
             ref="insertimage"
           />
-        </form>  
+        </form>
       </div>
     </div>
   </div>
@@ -92,22 +92,21 @@ export default {
   },
   created() {
     if (!this.logintoken.token) {
-      this.$router.push("/shop/shoppage")
+      alert("로그인 해야합니다.")
+      this.$router.push("/")
     }
   },
-    methods: {
+  methods: {
     insertImage() {
       const imageform = new FormData(this.$refs.insertimageform)
-      this.$http
-        .post("/board/ajax_image_upload.do", imageform)
-        .then((res) => {
-          console.log(res.data)
-          this.board.board_image =
-            window.location.pathname.substring(
-              0,
-              window.location.pathname.indexOf("/", 2)
-            ) + res.data.imagePath
-        })
+      this.$http.post("/board/ajax_image_upload.do", imageform).then((res) => {
+        console.log(res.data)
+        this.board.board_image =
+          window.location.pathname.substring(
+            0,
+            window.location.pathname.indexOf("/", 2)
+          ) + res.data.imagePath
+      })
     },
     clickImage() {
       this.$refs.insertimage.click()

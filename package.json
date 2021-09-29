@@ -28,6 +28,12 @@
     "vue-template-compiler": "^2.6.11"
   },
   "eslintConfig": {
+    "rules": {
+      "no-unused-vars": "off"
+    },
+    "globals": {
+      "kakao": false
+    },
     "root": true,
     "env": {
       "node": true

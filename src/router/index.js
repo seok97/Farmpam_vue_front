@@ -109,9 +109,14 @@ const routes = [
     component: () => import("../components/Info_update"),
   },
   {
-    path: "/insertContent",
+    path: "/board/MyBoardInsert",
     name: "insertContent",
     component: () => import("../components/MyBoardInsert"),
+  },
+  {
+    path: "/sns/mypage",
+    name: "MySns",
+    component: () => import("../components/MySns"),
   },
 ]
 

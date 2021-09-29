@@ -116,6 +116,11 @@
               >
             </li>
             <li>
+              <router-link to="/sns/mypage" class="dropdown-item"
+                >내SNS홈</router-link
+              >
+            </li>
+            <li>
               <router-link
                 class="dropdown-item"
                 :to="{
