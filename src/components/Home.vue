@@ -29,7 +29,7 @@
           </div>
           <div class="toinst col-md-4"></div>
           <router-link
-            to="/shop"
+            to="/board/MyBoardInsert"
             class="
               intlink
               d-flex
