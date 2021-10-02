@@ -116,7 +116,14 @@
               >
             </li>
             <li>
-              <router-link to="/sns/mypage" class="dropdown-item"
+              <router-link
+                :to="{
+                  name: 'MySns',
+                  params: {
+                    farmeremail: logintoken.email,
+                  },
+                }"
+                class="dropdown-item"
                 >내SNS홈</router-link
               >
             </li>

@@ -114,7 +114,7 @@ const routes = [
     component: () => import("../components/MyBoardInsert"),
   },
   {
-    path: "/sns/mypage",
+    path: "/sns/mypage/:farmeremail",
     name: "MySns",
     component: () => import("../components/MySns"),
   },
